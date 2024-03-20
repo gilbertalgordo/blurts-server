@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-breach-meta-title = { -brand-fx-monitor } - Quadro de controlo
+breach-meta-title = { -brand-fx-monitor } - Pannello de controlo
 breach-all-meta-title = { -brand-fx-monitor } - Tote le violation datos
 breach-all-meta-social-title = Tote le violationes disvelate per { -brand-fx-monitor }
 breach-all-meta-social-description = Navigar per le lista complete de violationes note disvelate per { -brand-fx-monitor }, pois discoperi si tu informationes era exponite.
@@ -157,4 +157,4 @@ breach-checklist-hp-body-2 = Un gestor de contrasignos como { $passwordManagerLi
 # Variables:
 #   $breachDate (String) - Date of the breach
 #   $companyName (String) - Name of the company where the breach occurred
-breach-checklist-general-header = Continge { $companyName } pro informar les re iste violation e querer specific passos que tu pote facer.
+breach-checklist-general-header = Contacta { $companyName } pro informar les de iste violation e demandar qual mesuras specific tu pote prender.

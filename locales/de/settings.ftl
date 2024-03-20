@@ -30,11 +30,16 @@ settings-email-limit-info =
 settings-email-verification-callout = E-Mail-Bestätigung erforderlich
 settings-resend-email-verification-link = Bestätigungs-Mail erneut versenden
 settings-add-email-button = E-Mail-Adresse hinzufügen
+# Deprecated
 settings-delete-email-button = E-Mail-Adresse löschen
+settings-remove-email-button-label = Entfernen
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = { $emailAddress } nicht mehr überwachen
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Ist von { $breachCount } bekannten Datenleck betroffen.
@@ -45,13 +50,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = { -brand-premium }-Abonnement kündigen
 settings-cancel-premium-subscription-info = Ihr Abonnement wird nach Ende des aktuellen Abrechnungszeitraums auf ein kostenloses Konto zurückgesetzt. Die Ergebnisse Ihrer Datenschutz-Scans werden dauerhaft gelöscht und es wird nur eine E-Mail-Adresse auf Datenlecks überwacht.
-settings-cancel-premium-subscription-link-label = Kündigen über Ihr { -brand-fx-account }
 
 ## Deactivate account
 
 settings-deactivate-account-title = Konto deaktivieren
-settings-deactivate-account-info = Sie können { -product-short-name } deaktivieren, indem Sie Ihr { -brand-fx-account } löschen.
-settings-fxa-link-label = { -brand-firefox }-Einstellungen aufrufen
+settings-deactivate-account-info-2 = Sie können { -product-short-name } deaktivieren, indem Sie Ihr { -brand-mozilla-account } löschen.
+settings-fxa-link-label-3 = Zu den { -brand-mozilla-account }-Einstellungen gehen
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = { -brand-monitor }-Konto löschen
+settings-delete-monitor-free-account-description = Dies löscht Ihr { -brand-monitor }-Konto dauerhaft und alle Benachrichtigungen werden deaktiviert.
+settings-delete-monitor-free-account-cta-label = Konto löschen
+settings-delete-monitor-free-account-dialog-title = Ihr { -brand-monitor }-Konto wird dauerhaft gelöscht
+settings-delete-monitor-free-account-dialog-lead = Alle Ihre { -brand-monitor }-Kontodaten werden gelöscht und es findet keine Überwachung auf neue Datenlecks mehr statt. Ihr { -brand-mozilla }-Konto wird dadurch nicht gelöscht.
+settings-delete-monitor-free-account-dialog-cta-label = Konto löschen
+settings-delete-monitor-free-account-dialog-cancel-button-label = Ich habe es mir anders überlegt – zurück zur vorherigen Seite
+settings-delete-monitor-plus-account-title = { -brand-monitor }-Konto löschen
+settings-delete-monitor-plus-account-description = Dies löscht Ihr { -brand-monitor }-Konto dauerhaft und Ihr bezahltes { -brand-monitor-plus }-Abonnement endet sofort.
+settings-delete-monitor-plus-account-cta-label = Konto löschen
+settings-delete-monitor-plus-account-dialog-title = Ihr { -brand-monitor }-Konto wird dauerhaft gelöscht
+settings-delete-monitor-plus-account-dialog-lead-p1 = Alle Ihre { -brand-monitor }-Kontodaten werden gelöscht und es findet keine Überwachung auf neue Datenlecks oder ein Aufdecken von Datenhändlern mehr statt. Ihr { -brand-mozilla }-Konto wird dadurch nicht gelöscht.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Ihr kostenpflichtiges Abonnement endet heute und die verbleibende Dauer Ihres Abonnements wird nicht angerechnet.
+settings-delete-monitor-plus-account-dialog-cta-label = Konto löschen
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Ich habe es mir anders überlegt – zurück zur vorherigen Seite
+settings-delete-monitor-account-confirmation-toast-label = Ihr { -brand-monitor }-Konto wurde jetzt dauerhaft gelöscht.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Schließen
 
 ## Add email dialog
 

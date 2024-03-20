@@ -29,15 +29,16 @@ export interface SearchLocationResults {
 function getLocationsByQuery(searchQuery: string) {
   if (!locationData) {
     throw new Error(
-      "No location data available: You may need to run `npm run create-location-data`."
+      "No location data available: You may need to run `npm run create-location-data`.",
     );
   }
 
   const locationNames = locationData.data.map((location: RelevantLocation) => {
-    const { name, stateCode, countryCode, alternateNames } = location;
-    const alternateNamesJoined = alternateNames ? alternateNames.join(" ") : "";
+    const { n, s, a } = location;
+    const alternateNamesJoined = a ? a.join(" ") : "";
+    const countryCode = "USA";
 
-    return `${name} ${stateCode} ${countryCode} ${alternateNamesJoined}`;
+    return `${n} ${s} ${countryCode} ${alternateNamesJoined}`;
   });
 
   // For search options see: https://github.com/leeoniya/uFuzzy#options
@@ -63,7 +64,7 @@ function getLocationsByQuery(searchQuery: string) {
   const order = fuzzySearch.sort(info, locationNames, searchQuery);
   const results = locationIndexes.map(
     (locationIndex: number) =>
-      locationData.data[locationIndex] as RelevantLocation
+      locationData.data[locationIndex] as RelevantLocation,
   );
 
   const resultsOrdered = order.map((orderIndex: number) => results[orderIndex]);
@@ -72,14 +73,14 @@ function getLocationsByQuery(searchQuery: string) {
   // of them in order to not move up weak ones.
   const maxSortByPopulationThreshold = 0.75;
   const locationSplitIndex = Math.ceil(
-    results.length * maxSortByPopulationThreshold
+    results.length * maxSortByPopulationThreshold,
   );
   const resultsSortedByPopulation = [
     ...resultsOrdered
       .slice(0, locationSplitIndex)
       .sort(
         (a: RelevantLocation, b: RelevantLocation) =>
-          Number(b.population) - Number(a.population)
+          Number(b.p ?? 0) - Number(a.p ?? 0),
       ),
     ...resultsOrdered.slice(locationSplitIndex + 1),
   ];

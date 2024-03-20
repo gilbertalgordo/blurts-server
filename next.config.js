@@ -2,11 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
- /* eslint @typescript-eslint/no-var-requires: "off" */
-import { withSentryConfig } from "@sentry/nextjs"
+/* eslint @typescript-eslint/no-var-requires: "off" */
+import { withSentryConfig } from "@sentry/nextjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
+  sentry: {
+    disableServerWebpackPlugin: process.env.UPLOAD_SENTRY_SOURCEMAPS !== "true",
+    disableClientWebpackPlugin: process.env.UPLOAD_SENTRY_SOURCEMAPS !== "true",
+  },
   images: {
     remotePatterns: [
       {
@@ -28,6 +33,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "monitor.mozilla.org",
+      },
+      {
+        protocol: "https",
         hostname: "firefoxusercontent.com",
       },
       {
@@ -45,48 +54,14 @@ const nextConfig = {
       },
     ],
   },
+  /** @type {import('next').NextConfig['headers']} */
   async headers() {
-    /** @type {import('next').NextConfig['headers']} */
     const headers = [
       {
         source: "/:path*",
         headers: [
-          // Most of these values are taken from the Helmet package:
-          // https://www.npmjs.com/package/helmet
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "base-uri 'self'",
-              `script-src 'self' ${
-                process.env.NODE_ENV === "development"
-                  ? "'unsafe-eval' 'unsafe-inline'"
-                  : // See https://github.com/vercel/next.js/discussions/51039
-                    "'unsafe-inline'"
-              } https://*.googletagmanager.com`,
-              "script-src-attr 'none'",
-              `connect-src 'self' ${
-                process.env.NODE_ENV === "development" ? "webpack://*" : ""
-              } https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.ingest.sentry.io`,
-              `img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com https://firefoxusercontent.com https://mozillausercontent.com https://monitor.cdn.mozilla.net ${nextConfig.images.remotePatterns
-                .map(
-                  (pattern) =>
-                    `${
-                      pattern.protocol ?? "https"
-                    }://${pattern.hostname.replace("**", "*")}${
-                      pattern.port ? `:${pattern.port}` : ""
-                    }`
-                )
-                .join(" ")}`,
-              "child-src 'self'",
-              "style-src 'self' 'unsafe-inline'",
-              "font-src 'self'",
-              "form-action 'self'",
-              "frame-ancestors 'self'",
-              "object-src 'none'",
-              "upgrade-insecure-requests",
-            ].join("; "),
-          },
+          // Note: the Content-Security-Policy gets set in /src/middleware.ts
+          //       (because it needs a dynamically-generated nonce).
           {
             key: "Cross-Origin-Opener-Policy",
             value: "same-origin",
@@ -153,6 +128,26 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Before we redesigned the website, the dashboard would be reachable
+      // via /user/breaches:
+      {
+        source: "/user/breaches",
+        destination: "/user/dashboard",
+        permanent: true,
+      },
+      // While we were implementing a redesign, we made it available at the
+      // /redesign subpath. In case we still have lingering links to there
+      // anywhere, this redirect should have people end up at the right place:
+      {
+        source: "/redesign/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
+      {
+        source: "/user/dashboard/fix/data-broker-profiles/welcome-to-premium",
+        destination: "/user/dashboard/fix/data-broker-profiles/welcome-to-plus",
+        permanent: true,
+      },
       // We used to have a page with security tips;
       // if folks get sent there via old lnks, redirect them to the most
       // relevant page on SuMo:
@@ -161,9 +156,17 @@ const nextConfig = {
         destination: "https://support.mozilla.org/kb/how-stay-safe-web",
         permanent: false,
       },
+      // Some subset of users still find their way to the old login
+      // link, which redirects to a now-404 endpoint. Add a redirect
+      // to the new endpoint while we are investigating.
+      {
+        source: "/oauth/confirmed",
+        destination: "/api/auth/callback/fxa",
+        permanent: false,
+      },
     ];
   },
-  webpack: (config, options) => {
+  webpack: (config, _options) => {
     config.module.rules.push({
       test: /\.ftl/,
       type: "asset/source",
@@ -187,11 +190,22 @@ const sentryWebpackPluginOptions = {
 
   org: "mozilla",
   project: "firefox-monitor",
-
-  silent: true, // Suppresses all logs
+  silent: false, // Suppresses all logs
+  authToken: process.env.SENTRY_AUTH_TOKEN,
 
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-export default withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+const sentryOptions = {
+  // Upload additional client files (increases upload size)
+  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#widen-the-upload-scope
+  widenClientFileUpload: true,
+  hideSourceMaps: false,
+};
+
+export default withSentryConfig(
+  nextConfig,
+  sentryWebpackPluginOptions,
+  sentryOptions,
+);

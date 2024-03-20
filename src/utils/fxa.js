@@ -13,9 +13,11 @@ import AppConstants from '../appConstants.js'
 // to abstract fetching API endpoints from the OAuth server (instead
 // of specifying them in the environment) in the future.
 const FxAOAuthUtils = {
-  get authorizationUri () { return AppConstants.OAUTH_AUTHORIZATION_URI },
-  get tokenUri () { return AppConstants.OAUTH_TOKEN_URI },
-  get profileUri () { return AppConstants.OAUTH_PROFILE_URI }
+  get authorizationUri() { return AppConstants.OAUTH_AUTHORIZATION_URI },
+  get tokenUri() { return AppConstants.OAUTH_TOKEN_URI },
+  // TODO: Add unit test when changing this code:
+  /* c8 ignore next */
+  get profileUri() { return AppConstants.OAUTH_PROFILE_URI }
 }
 
 const FxAOAuthClient = new ClientOAuth2({
@@ -31,7 +33,9 @@ const FxAOAuthClient = new ClientOAuth2({
  * @param {string} path
  * @param {any} token
  */
-async function postTokenRequest (path, token) {
+// TODO: Add unit test when changing this code:
+/* c8 ignore start */
+async function postTokenRequest(path, token) {
   const fxaTokenOrigin = new URL(AppConstants.OAUTH_TOKEN_URI).origin
   const tokenUrl = `${fxaTokenOrigin}${path}`
   const tokenBody = (typeof token === 'object') ? token : { token }
@@ -54,11 +58,14 @@ async function postTokenRequest (path, token) {
     return e
   }
 }
+/* c8 ignore stop */
 
 /**
  * @param {string} token
  */
-async function verifyOAuthToken (token) {
+// TODO: Add unit test when changing this code:
+/* c8 ignore start */
+async function verifyOAuthToken(token) {
   try {
     const response = await postTokenRequest('/v1/verify', token)
     return response
@@ -68,13 +75,23 @@ async function verifyOAuthToken (token) {
     }
   }
 }
+/* c8 ignore stop */
 
 /**
- * @param {{ token?: any; refresh_token?: any; }} token
+ * fxa doc: https://mozilla.github.io/ecosystem-platform/api#tag/Oauth/operation/postOauthDestroy
+ *
+ * @param {{ token?: string; token_type_hint?: string; }} token
  */
-async function destroyOAuthToken (token) {
+// TODO: Add unit test when changing this code:
+/* c8 ignore start */
+async function destroyOAuthToken(token) {
+  const tokenBody = {
+    ...token,
+    client_id: AppConstants.OAUTH_CLIENT_ID,
+    client_secret: AppConstants.OAUTH_CLIENT_SECRET
+  }
   try {
-    const response = await postTokenRequest('/v1/destroy', token)
+    const response = await postTokenRequest('/v1/oauth/destroy', tokenBody)
     return response
   } catch (e) {
     if (e instanceof Error) {
@@ -82,19 +99,24 @@ async function destroyOAuthToken (token) {
     }
   }
 }
+/* c8 ignore stop */
 
 /**
- * @param {{ fxa_access_token: any; fxa_refresh_token: any; }} subscriber
+ * @param {{ fxa_access_token: string; fxa_refresh_token: string; }} subscriber
  */
-async function revokeOAuthTokens (subscriber) {
-  await destroyOAuthToken({ token: subscriber.fxa_access_token })
-  await destroyOAuthToken({ refresh_token: subscriber.fxa_refresh_token })
+// TODO: Add unit test when changing this code:
+/* c8 ignore next 4 */
+async function revokeOAuthTokens(subscriber) {
+  await destroyOAuthToken({ token: subscriber.fxa_access_token, token_type_hint: "access_token" })
+  await destroyOAuthToken({ token: subscriber.fxa_refresh_token, token_type_hint: "refresh_token" })
 }
 
 /**
  * @param {any} accessToken
  */
-async function getProfileData (accessToken) {
+// TODO: Add unit test when changing this code:
+/* c8 ignore start */
+async function getProfileData(accessToken) {
   try {
     const response = await fetch(FxAOAuthUtils.profileUri, {
       headers: { Authorization: `Bearer ${accessToken}` }
@@ -108,12 +130,15 @@ async function getProfileData (accessToken) {
     return e
   }
 }
+/* c8 ignore stop */
 
 /**
  * @param {string} path
  */
-async function sendMetricsFlowPing (path) {
-  const fxaMetricsFlowUrl = new URL(path, AppConstants.FXA_SETTINGS_URL)
+// Not covered by tests; mostly side-effects. See test-coverage.md#mock-heavy 
+/* c8 ignore start */
+async function sendMetricsFlowPing(path) {
+  const fxaMetricsFlowUrl = new URL(path, AppConstants.NEXT_PUBLIC_FXA_SETTINGS_URL)
   try {
     const response = await fetch(fxaMetricsFlowUrl, {
       headers: { Origin: AppConstants.SERVER_URL }
@@ -128,11 +153,85 @@ async function sendMetricsFlowPing (path) {
     return false
   }
 }
+/* c8 ignore stop */
+
+/**
+ * @param {string} bearerToken
+ * @returns {Promise<Array<any> | null>}
+ */
+// Not covered by tests; mostly side-effects. See test-coverage.md#mock-heavy
+/* c8 ignore start */
+async function getSubscriptions(bearerToken) {
+  const subscriptionIdUrl = `${AppConstants.OAUTH_ACCOUNT_URI}/oauth/subscriptions/active`
+  try {
+    const getResp = await fetch(subscriptionIdUrl, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${bearerToken}`
+      }
+    })
+
+    if (!getResp.ok) {
+      throw new InternalServerError(`bad response: ${getResp.status}`)
+    } else {
+      console.info(`get_fxa_subscriptions: success`)
+      return await getResp.json()
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error('get_fxa_subscriptions', { stack: e.stack })
+    }
+    return null
+  }
+}
+/* c8 ignore stop */
+
+/**
+ * @param {string} bearerToken
+ * @returns {Promise<boolean>}
+ */
+// Not covered by tests; mostly side-effects. See test-coverage.md#mock-heavy
+/* c8 ignore start */
+async function deleteSubscription(bearerToken) {
+  try {
+    const subs = await getSubscriptions(bearerToken) ?? []
+    let subscriptionId;
+    for (const sub of subs) {
+      if (sub && sub.productId && sub.productId === AppConstants.PREMIUM_PRODUCT_ID) {
+        subscriptionId = sub.subscriptionId
+      }
+    }
+    if (subscriptionId) {
+      const deleteUrl = `${AppConstants.OAUTH_ACCOUNT_URI}/oauth/subscriptions/active/${subscriptionId}`
+      const response = await fetch(deleteUrl, {
+        method: "DELETE",
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${bearerToken}`
+        }
+      })
+      if (!response.ok) {
+        // throw new InternalServerError(`bad response: ${response.status}`)
+      } else {
+        console.info(`delete_fxa_subscription: success - ${JSON.stringify(await response.json())}`)
+      }
+    }
+    return true
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error('delete_fxa_subscription', { stack: e.stack })
+    }
+    return false
+  }
+}
+/* c8 ignore stop */
 
 /**
  * @param {crypto.BinaryLike} email
  */
-function getSha1 (email) {
+// TODO: Add unit test when changing this code:
+/* c8 ignore next 3 */
+function getSha1(email) {
   return crypto.createHash('sha1').update(email).digest('hex')
 }
 
@@ -143,5 +242,7 @@ export {
   revokeOAuthTokens,
   getProfileData,
   sendMetricsFlowPing,
-  getSha1
+  getSha1,
+  getSubscriptions,
+  deleteSubscription
 }

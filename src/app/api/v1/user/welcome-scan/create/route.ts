@@ -2,19 +2,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../utils/auth";
 import { NextRequest, NextResponse } from "next/server";
 
+import { logger } from "../../../../../functions/server/logging";
+import { getServerSession } from "../../../../../functions/server/getServerSession";
 import {
   createProfile,
   createScan,
-  isEligible,
+  isEligibleForFreeScan,
 } from "../../../../../functions/server/onerep";
-import type { ProfileData } from "../../../../../functions/server/onerep";
+import type { CreateProfileRequest } from "../../../../../functions/server/onerep";
 import { meetsAgeRequirement } from "../../../../../functions/universal/user";
 import AppConstants from "../../../../../../appConstants";
-import { getSubscriberByEmail } from "../../../../../../db/tables/subscribers";
+import { getSubscriberByFxaUid } from "../../../../../../db/tables/subscribers";
 import {
   setOnerepProfileId,
   setOnerepScan,
@@ -22,6 +22,8 @@ import {
 import { setProfileDetails } from "../../../../../../db/tables/onerep_profiles";
 import { StateAbbr } from "../../../../../../utils/states";
 import { ISO8601DateString } from "../../../../../../utils/parse";
+import { getCountryCode } from "../../../../../functions/server/getCountryCode";
+import { headers } from "next/headers";
 
 export interface WelcomeScanBody {
   success: boolean;
@@ -36,11 +38,17 @@ export interface UserInfo {
 }
 
 export async function POST(
-  req: NextRequest
-): Promise<NextResponse<WelcomeScanBody | unknown>> {
-  const session = await getServerSession(authOptions);
+  req: NextRequest,
+): Promise<NextResponse<WelcomeScanBody> | NextResponse<unknown>> {
+  const session = await getServerSession();
+  if (!session?.user?.subscriber) {
+    throw new Error("No fxa_uid found in session");
+  }
 
-  const eligible = await isEligible();
+  const eligible = await isEligibleForFreeScan(
+    session.user,
+    getCountryCode(headers()),
+  );
   if (!eligible) {
     throw new Error("User is not eligible for feature");
   }
@@ -63,17 +71,22 @@ export async function POST(
   if (!meetsAgeRequirement(dateOfBirth)) {
     throw new Error(`User does not meet the age requirement: ${dateOfBirth}`);
   }
-  const profileData: ProfileData = {
+  const profileData: CreateProfileRequest = {
     first_name: firstName,
     last_name: lastName,
     addresses: [{ city, state }],
     birth_date: dateOfBirth,
   };
 
-  if (typeof session?.user?.email === "string") {
+  if (typeof session?.user?.subscriber.fxa_uid === "string") {
     try {
-      const subscriber = await getSubscriberByEmail(session.user.email);
+      const subscriber = await getSubscriberByFxaUid(
+        session.user.subscriber.fxa_uid,
+      );
 
+      if (!subscriber) {
+        throw new Error("No subscriber found for current session.");
+      }
       if (!subscriber.onerep_profile_id) {
         // Create OneRep profile
         const profileId = await createProfile(profileData);
@@ -83,14 +96,20 @@ export async function POST(
         // Start exposure scan
         const scan = await createScan(profileId);
         const scanId = scan.id;
-        await setOnerepScan(profileId, scanId);
+        await setOnerepScan(profileId, scanId, scan.status, "manual");
+        // TODO MNTOR-2686 - refactor onerep.ts and centralize logging.
+        logger.info("scan_created", {
+          onerepScanId: scanId,
+          onerepScanStatus: scan.status,
+          onerepScanReason: "manual",
+        });
 
         return NextResponse.json({ success: true }, { status: 200 });
       }
 
       return NextResponse.json({ success: true }, { status: 200 });
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       return NextResponse.json({ success: false }, { status: 500 });
     }
   } else {

@@ -9,7 +9,10 @@ import styles from "./Icons.module.scss";
 //       then added to react-icons: https://react-icons.github.io/react-icons/.
 //       These manually-created components are a workaround until that is done.
 
-// Keywords: cross, X
+// These components just render HTML without business logic:
+/* c8 ignore start */
+
+// Keywords: Arrow
 export const ArrowIcon = ({
   alt,
   ...props
@@ -252,6 +255,56 @@ export const QuestionMarkCircle = ({
   );
 };
 
+// Keywords: error, warning, exclamation mark
+// https://www.figma.com/file/olFHozlwrdYlCkZaG4B262/Nebula-Design-System-V2-(WIP)?type=design&node-id=109-1376
+export const ErrorIcon = ({
+  alt,
+  ...props
+}: SVGProps<SVGSVGElement> & { alt: string }) => {
+  return (
+    <svg
+      role="img"
+      aria-label={alt}
+      aria-hidden={alt === ""}
+      xmlns="http://www.w3.org/2000/svg"
+      width={14}
+      height={14}
+      viewBox="0 0 14 14"
+      {...props}
+      className={`${props.className ?? ""} ${styles.colorifyFill}`}
+    >
+      <path d="M13.6929 11.0119L8.73994 1.10586C8.57386 0.773576 8.31852 0.494108 8.00254 0.298784C7.68656 0.10346 7.32242 0 6.95094 0C6.57946 0 6.21532 0.10346 5.89934 0.298784C5.58336 0.494108 5.32802 0.773576 5.16194 1.10586L0.20894 11.0159C0.0574972 11.3206 -0.0136719 11.659 0.00216778 11.999C0.0180075 12.3389 0.120332 12.6692 0.299458 12.9586C0.478583 13.2479 0.728584 13.4868 1.0258 13.6526C1.32302 13.8183 1.65762 13.9055 1.99794 13.9059H11.9029C12.2439 13.906 12.5792 13.819 12.8771 13.6531C13.1749 13.4872 13.4255 13.2479 13.6048 12.9579C13.7842 12.668 13.8864 12.337 13.9018 11.9964C13.9172 11.6557 13.8453 11.3169 13.6929 11.0119ZM5.95094 3.90586C5.95094 3.64065 6.0563 3.38629 6.24383 3.19876C6.43137 3.01122 6.68572 2.90586 6.95094 2.90586C7.21616 2.90586 7.47051 3.01122 7.65805 3.19876C7.84558 3.38629 7.95094 3.64065 7.95094 3.90586V7.90586C7.95094 8.17108 7.84558 8.42543 7.65805 8.61297C7.47051 8.80051 7.21616 8.90586 6.95094 8.90586C6.68572 8.90586 6.43137 8.80051 6.24383 8.61297C6.0563 8.42543 5.95094 8.17108 5.95094 7.90586V3.90586ZM6.95094 12.1559C6.70371 12.1559 6.46204 12.0826 6.25648 11.9452C6.05092 11.8078 5.8907 11.6126 5.79609 11.3842C5.70148 11.1558 5.67673 10.9045 5.72496 10.662C5.77319 10.4195 5.89224 10.1968 6.06706 10.022C6.24187 9.84717 6.4646 9.72811 6.70708 9.67988C6.94955 9.63165 7.20089 9.65641 7.42929 9.75101C7.6577 9.84562 7.85292 10.0058 7.99028 10.2114C8.12763 10.417 8.20094 10.6586 8.20094 10.9059C8.20094 11.2374 8.06924 11.5553 7.83482 11.7897C7.6004 12.0242 7.28246 12.1559 6.95094 12.1559Z" />
+    </svg>
+  );
+};
+
+// Keywords: delete, remove, trash can, rubbish bin
+// https://www.figma.com/file/olFHozlwrdYlCkZaG4B262/Nebula-Design-System-V2-(WIP)?type=design&node-id=109-1398
+export const DeleteIcon = ({
+  alt,
+  ...props
+}: SVGProps<SVGSVGElement> & { alt: string }) => {
+  return (
+    <svg
+      role="img"
+      aria-label={alt}
+      aria-hidden={alt === ""}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      {...props}
+      className={`${props.className ?? ""} ${styles.colorifyFill}`}
+    >
+      <path
+        fillRule="evenodd"
+        d="M14.95 6H18a1 1 0 110 2v9a3 3 0 01-3 3h-5a3 3 0 01-3-3V8a1 1 0 110-2h3.05a2.5 2.5 0 014.9 0zm-1.059 0A1.489 1.489 0 0012.5 5a1.489 1.489 0 00-1.391 1h2.782zM16 17a1 1 0 01-1 1h-5a1 1 0 01-1-1V8h7v9zm-5-1.5a.5.5 0 01-1 0v-6a.5.5 0 011 0v6zm2 0a.5.5 0 01-1 0v-6a.5.5 0 011 0v6zm1.5.5a.5.5 0 00.5-.5v-6a.5.5 0 00-1 0v6a.5.5 0 00.5.5z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+};
+
 // Keywords: close, exit, cross
 // https://www.figma.com/file/olFHozlwrdYlCkZaG4B262/Nebula-Design-System-V2-(WIP)?type=design&node-id=109-1385&t=kxEcvIQoafGdPZ3y-4
 export const CloseBtn = ({
@@ -280,9 +333,7 @@ export const CloseBtn = ({
 
 // Link to icon: https://www.figma.com/file/olFHozlwrdYlCkZaG4B262/Nebula-Design-System-V2-(WIP)?type=design&node-id=3515-9584&mode=design&t=O0YJKrRAhztcOpXU-4
 // Keywords: View Grid, ViewGrid, Bento, AppPicker, App Picker
-export const BentoIcon = (
-  props: SVGProps<SVGSVGElement> & { alt?: string }
-) => {
+export const BentoIcon = (props: SVGProps<SVGSVGElement> & { alt: string }) => {
   return (
     <svg
       width="24"
@@ -307,7 +358,7 @@ export const BentoIcon = (
 
 // Link to icon: https://www.figma.com/file/olFHozlwrdYlCkZaG4B262/Nebula-Design-System-V2-(WIP)?type=design&node-id=109-1405&mode=design&t=WbRVICi1MjCbri9t-4
 export const FilterIcon = (
-  props: SVGProps<SVGSVGElement> & { alt?: string }
+  props: SVGProps<SVGSVGElement> & { alt: string },
 ) => {
   return (
     <svg
@@ -331,9 +382,9 @@ export const FilterIcon = (
   );
 };
 
-// Keywords: lock
+// Keywords: lock, slashed lock
 export const PasswordIcon = (
-  props: SVGProps<SVGSVGElement> & { alt?: string }
+  props: SVGProps<SVGSVGElement> & { alt: string },
 ) => {
   return (
     <svg
@@ -358,6 +409,123 @@ export const PasswordIcon = (
         clipRule="evenodd"
         d="M2.77372 13.3333C2.62071 13.3334 2.47112 13.2881 2.34388 13.2031C2.21663 13.1181 2.11745 12.9973 2.05889 12.856C2.00033 12.7146 1.98501 12.5591 2.01488 12.409C2.04475 12.2589 2.11846 12.1211 2.22669 12.013L12.0227 2.21709C12.1686 2.07622 12.3639 1.99827 12.5667 2.00003C12.7695 2.00179 12.9634 2.08312 13.1068 2.22651C13.2502 2.3699 13.3315 2.56387 13.3333 2.76664C13.3351 2.96941 13.2571 3.16476 13.1162 3.31062L3.32023 13.1065C3.17534 13.2516 2.97876 13.3332 2.77372 13.3333V13.3333Z"
       />
+    </svg>
+  );
+};
+
+// Keywords: lock, padlock
+export const LockIcon = (props: SVGProps<SVGSVGElement> & { alt: string }) => {
+  return (
+    <svg
+      width="15"
+      height="16"
+      viewBox="0 0 15 16"
+      role="img"
+      aria-label={props.alt}
+      aria-hidden={props.alt === ""}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      className={`${props.className ?? ""} ${styles.colorifyFill}`}
+    >
+      <title>{props.alt}</title>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12.8242 6.83962H12.2513V4.57143C12.2513 3.35901 11.7684 2.19625 10.9089 1.33894C10.0493 0.481631 8.88354 0 7.66797 0C6.45239 0 5.2866 0.481631 4.42706 1.33894C3.56752 2.19625 3.08464 3.35901 3.08464 4.57143V6.83962H2.51172C2.05588 6.83962 1.61871 7.02023 1.29638 7.34172C0.974051 7.66321 0.792969 8.09925 0.792969 8.55391V14.2857C0.792969 14.7404 0.974051 15.1764 1.29638 15.4979C1.61871 15.8194 2.05588 16 2.51172 16H12.8242C13.2801 16 13.7172 15.8194 14.0396 15.4979C14.3619 15.1764 14.543 14.7404 14.543 14.2857V8.55391C14.543 8.09925 14.3619 7.66321 14.0396 7.34172C13.7172 7.02023 13.2801 6.83962 12.8242 6.83962ZM5.3763 4.57143C5.3763 3.96522 5.61774 3.38384 6.04751 2.95518C6.47729 2.52653 7.06018 2.28571 7.66797 2.28571C8.27576 2.28571 8.85865 2.52653 9.28842 2.95518C9.71819 3.38384 9.95963 3.96522 9.95963 4.57143V6.83962H5.3763V4.57143Z"
+      />
+    </svg>
+  );
+};
+
+// Keywords: time, estimated, watch
+export const ClockIcon = (props: SVGProps<SVGSVGElement> & { alt: string }) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      role="img"
+      aria-label={props.alt}
+      aria-hidden={props.alt === ""}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      className={`${props.className ?? ""} ${styles.colorifyFill}`}
+    >
+      <title>{props.alt}</title>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 0C9.62663 0 7.30655 0.703788 5.33316 2.02236C3.35977 3.34094 1.8217 5.21508 0.913451 7.4078C0.00519937 9.60051 -0.232441 12.0133 0.230582 14.3411C0.693605 16.6689 1.83649 18.807 3.51472 20.4853C5.19295 22.1635 7.33115 23.3064 9.65892 23.7694C11.9867 24.2324 14.3995 23.9948 16.5922 23.0865C18.7849 22.1783 20.6591 20.6402 21.9776 18.6668C23.2962 16.6934 24 14.3734 24 12C23.9964 8.8185 22.731 5.76833 20.4813 3.51866C18.2317 1.269 15.1815 0.00357316 12 0ZM12 21C10.22 21 8.47992 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4441C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89471 5.63604 5.63604C6.89472 4.37736 8.49836 3.5202 10.2442 3.17293C11.99 2.82566 13.7996 3.00389 15.4442 3.68508C17.0887 4.36627 18.4943 5.51982 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C20.9972 14.3861 20.0481 16.6737 18.3609 18.3609C16.6737 20.0481 14.3861 20.9972 12 21ZM17.25 12H12V6.75C12 6.55109 11.921 6.36032 11.7803 6.21967C11.6397 6.07902 11.4489 6 11.25 6C11.0511 6 10.8603 6.07902 10.7197 6.21967C10.579 6.36032 10.5 6.55109 10.5 6.75V12.75C10.5 12.9489 10.579 13.1397 10.7197 13.2803C10.8603 13.421 11.0511 13.5 11.25 13.5H17.25C17.4489 13.5 17.6397 13.421 17.7803 13.2803C17.921 13.1397 18 12.9489 18 12.75C18 12.5511 17.921 12.3603 17.7803 12.2197C17.6397 12.079 17.4489 12 17.25 12Z"
+      />
+    </svg>
+  );
+};
+
+// Keywords: completed, tick
+export const CheckIcon = (props: SVGProps<SVGSVGElement> & { alt: string }) => {
+  return (
+    <svg
+      width="16"
+      height="17"
+      viewBox="0 0 16 17"
+      role="img"
+      aria-label={props.alt}
+      aria-hidden={props.alt === ""}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      className={`${props.className ?? ""} ${styles.colorifyFill}`}
+    >
+      <title>{props.alt}</title>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M5.32504 16.0139C4.97091 16.0139 4.63131 15.8731 4.38094 15.6227L0.374852 11.6166C0.131605 11.3647 -0.00299204 11.0274 5.04803e-05 10.6773C0.003093 10.3272 0.143532 9.99224 0.391119 9.74465C0.638706 9.49706 0.973632 9.35663 1.32376 9.35358C1.67389 9.35054 2.0112 9.48514 2.26306 9.72839L5.14343 12.6088L13.5776 0.55978C13.782 0.273273 14.0913 0.0790529 14.4381 0.0193549C14.785 -0.0403431 15.1414 0.0393084 15.4298 0.240989C15.7183 0.442669 15.9154 0.750069 15.9784 1.09634C16.0414 1.44261 15.9652 1.79976 15.7663 2.09011L6.41871 15.4437C6.30746 15.6046 6.16226 15.739 5.99335 15.8375C5.82445 15.936 5.63596 15.9963 5.44122 16.0139C5.40252 16.0159 5.36375 16.0159 5.32504 16.0139V16.0139Z"
+      />
+    </svg>
+  );
+};
+
+// Keywords: person, profile, face, head
+export const AvatarIcon = (
+  props: SVGProps<SVGSVGElement> & { alt: string },
+) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 20 20"
+      role="img"
+      aria-label={props.alt}
+      aria-hidden={props.alt === ""}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      className={`${props.className ?? ""} ${styles.colorifyFill}`}
+    >
+      <title>{props.alt}</title>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 10C0 15.5228 4.47715 20 10 20C15.5203 19.9939 19.9939 15.5203 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10ZM2 10C2 5.58172 5.58172 2 10 2C14.4162 2.00496 17.995 5.58378 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10ZM15.6655 12.2092C14.7507 11.1534 13.6185 11.6272 12.3838 12.1438C11.6193 12.4637 10.8156 12.8 9.99972 12.8C9.18459 12.8 8.38113 12.4638 7.61679 12.144C6.38176 11.6273 5.24887 11.1533 4.33392 12.2092C3.91392 12.6936 3.88032 13.3992 4.24012 13.9284C5.49592 15.7764 7.59592 17 9.99972 17C12.4035 17 14.5035 15.7764 15.7593 13.9284C16.1205 13.3992 16.0855 12.6936 15.6655 12.2092ZM14.25 7.25C14.25 9.59742 12.3474 11.5 10 11.5C7.65258 11.5 5.75 9.59742 5.75 7.25C5.75 4.90258 7.65258 3 10 3C12.3474 3 14.25 4.90258 14.25 7.25Z"
+      />
+      <mask
+        id="mask0_328_1696"
+        style={{
+          maskType: "luminance",
+        }}
+        maskUnits="userSpaceOnUse"
+        x={0}
+        y={0}
+        width={20}
+        height={20}
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M0 10C0 15.5228 4.47715 20 10 20C15.5203 19.9939 19.9939 15.5203 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10ZM2 10C2 5.58172 5.58172 2 10 2C14.4162 2.00496 17.995 5.58378 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10ZM15.6655 12.2092C14.7507 11.1534 13.6185 11.6272 12.3838 12.1438C11.6193 12.4637 10.8156 12.8 9.99972 12.8C9.18459 12.8 8.38113 12.4638 7.61679 12.144C6.38176 11.6273 5.24887 11.1533 4.33392 12.2092C3.91392 12.6936 3.88032 13.3992 4.24012 13.9284C5.49592 15.7764 7.59592 17 9.99972 17C12.4035 17 14.5035 15.7764 15.7593 13.9284C16.1205 13.3992 16.0855 12.6936 15.6655 12.2092ZM14.25 7.25C14.25 9.59742 12.3474 11.5 10 11.5C7.65258 11.5 5.75 9.59742 5.75 7.25C5.75 4.90258 7.65258 3 10 3C12.3474 3 14.25 4.90258 14.25 7.25Z"
+          fill="white"
+        />
+      </mask>
+      <g mask="url(#mask0_328_1696)" />
     </svg>
   );
 };

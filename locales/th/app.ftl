@@ -1,10 +1,15 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
 # Strings for the main app
 
 
 ## The following messages are brand and should be kept entirely in English
 ## unless otherwise indicated.
 
--product-name = Firefox Monitor
+-product-name = Mozilla Monitor
 -product-name-nowrap = <span class="nowrap">{ -product-name }</span>
 -product-short-name = Monitor
 -brand-name = Firefox
@@ -15,8 +20,6 @@
 -brand-lockwise = Firefox Lockwise
 -brand-send = Firefox Send
 -brand-fpn = Firefox Private Network
--brand-mozilla-vpn = Mozilla VPN
--brand-relay = Firefox Relay
 
 ##
 
@@ -37,6 +40,9 @@ user-add-invalid-email = อีเมลไม่ถูกต้อง
 user-add-too-many-emails = คุณกำลังตรวจสอบจำนวนสูงสุดของอีเมล
 user-add-email-verify-subject = ยืนยันการบอกรับ { -product-name } ของคุณ
 user-add-duplicate-email = อีเมลนี้ได้ถูกเพิ่มไปยัง { -product-name } แล้ว
+# Variables:
+#   $preferencesLink (String) - Link to preferences
+#   $userEmail (String) - User email address
 user-add-duplicate-email-part-2 = เยี่ยมชม { $preferencesLink } ของคุณเพื่อตรวจสอบสถานะของ { $userEmail }
 error-headline = ข้อผิดพลาด
 user-verify-token-error = จำเป็นต้องใช้โทเค็นการยืนยัน
@@ -50,11 +56,11 @@ scan-placeholder = ป้อนที่อยู่อีเมล
 scan-submit = ค้นหาอีเมลของคุณ
 scan-error = ต้องเป็นอีเมลที่ถูกต้อง
 download-firefox-banner-button = ดาวน์โหลด { -brand-name }
-# Appears after Firefox Monitor has sent a verification email to a new user. 
+# Appears after Firefox Monitor has sent a verification email to a new user.
 signup-modal-sent = ส่งแล้ว!
 sign-up = ลงทะเบียน
 form-signup-error = ต้องเป็นอีเมลที่ถูกต้อง
-# breach-date = the calendar date a particular data theft occurred. 
+# breach-date = the calendar date a particular data theft occurred.
 breach-date = วันที่รั่วไหล:
 # compromised accounts = the total number of user accounts exposed in data breach
 compromised-accounts = บัญชีที่ถูกบุกรุก:
@@ -64,6 +70,8 @@ unsub-headline = เลิกบอกรับ { -product-name-nowrap }
 unsub-blurb = การดำเนินการนี้จะลบอีเมลของคุณออกจากรายการ { -product-name-nowrap } และคุณจะไม่ได้รับการแจ้งเตือนเมื่อมีการประกาศการละเมิดใหม่
 unsub-button = เลิกบอกรับ
 # Breach data provided by Have I Been Pwned.
+# Variables:
+#   $hibp-link (String) - Link to Have I Been Pwned
 hibp-attribution = ให้บริการข้อมูลการรั่วไหลโดย { $hibp-link }
 share-twitter = คนส่วนใหญ่มีบัญชีออนไลน์ประมาณ 100 บัญชี ค้นหาว่าคุณเป็นส่วนหนึ่งของข้อมูลที่รั่วหรือไม่
 share-facebook-headline = ค้นหาว่าคุณเป็นส่วนหนึ่งของข้อมูลที่รั่วหรือไม่
@@ -108,8 +116,6 @@ about-firefox-monitor = เกี่ยวกับ { -product-name }
 preferences = การกำหนดลักษณะ
 # Link title
 home = หน้าแรก
-# Link title
-breaches = การรั่วไหล
 # Link title
 security-tips = เคล็ดลับความปลอดภัย
 fxa-account = { -brand-fxa }
@@ -206,7 +212,9 @@ feat-security-tips = เคล็ดลับความปลอดภัย�
 feat-sensitive = ค้นหาขั้นสูงในการรั่วไหลที่ละเอียดอ่อน
 feat-enroll-multiple = ลงทะเบียนหลายอีเมลในการเฝ้าดูการรั่วไหล
 # This string is shown beneath each of the user’s email addresses to indicate
-# how many known breaches that email address was found in. 
+# how many known breaches that email address was found in.
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 appears-in-x-breaches =
     { $breachCount ->
        *[other] ปรากฏใน { $breachCount } การรั่วไหลที่ทราบ
@@ -217,6 +225,8 @@ get-email-alerts = รักษาความปลอดภัย: รับ�
 search-for-your-email = ค้นหาที่อยู่อีเมลของคุณในข้อมูลสาธารณะที่รั่วไหลย้อนกลับไปถึงปี 2007
 back-to-top = กลับขึ้นด้านบน
 comm-opt-0 = ส่งอีเมลถึงฉันหากที่อยู่อีเมลใด ๆ ของฉันที่อยู่ด้านล่างปรากฏขึ้นในการละเมิดข้อมูล
+# Variables:
+#   $primaryEmail (String) - User primary email address
 comm-opt-1 = ส่งการแจ้งเตือนการรั่วไหลทั้งหมดไปยัง { $primaryEmail }
 stop-monitoring-this = หยุดการตรวจสอบอีเมลนี้
 resend-verification = ส่งอีเมลยืนยันใหม่
@@ -225,7 +235,7 @@ send-verification = ส่งลิงก์ยืนยัน
 # This string is a header on the user preferences page and
 # appears above a check-box list of user options which allow
 # the user to choose whether or not they want to receive breach
-# alerts for all of their monitored email addresses to a single 
+# alerts for all of their monitored email addresses to a single
 # email address.
 breach-summary = สรุปการรั่วไหล
 show-breaches-for-this-email = แสดงการรั่วไหลทั้งหมดสำหรับอีเมลนี้
@@ -236,8 +246,15 @@ remove-fxm-blurb = ปิดการแจ้งเตือน { -product-name
 manage-email-addresses = จัดการที่อยู่อีเมล
 # Link title
 latest-breach-link = ดูว่าคุณอยู่ในการรั่วไหลนี้หรือไม่
+
+## Variables:
+##   $userName (String) - Username
+
 welcome-back = ยินดีต้อนรับกลับมา { $userName }!
 welcome-user = ยินดีต้อนรับ { $userName }!
+
+##
+
 breach-alert-subject = { -product-name } พบอีเมลของคุณในการรั่วไหลของข้อมูลใหม่
 your-info-was-discovered-headline = ข้อมูลของคุณถูกค้นพบในการรั่วไหลของข้อมูลใหม่
 your-info-was-discovered-blurb =
@@ -252,28 +269,45 @@ ba-next-step-2 = หยุดใช้รหัสผ่านที่ถูก
 ba-next-step-blurb-2 =
     อาชญากรไซเบอร์อาจพบรหัสผ่านของคุณบนเว็บมืดและนำไปใช้เพื่อเข้าสู่ระบบบัญชีอื่นๆ
     ของคุณได้ หนทางปกป้องบัญชีของคุณดีที่สุดคือให้ใช้รหัสผ่านที่ไม่ซ้ำกันสำหรับแต่ละบัญชี
+ba-next-step-3 = รับความช่วยเหลือในการสร้างรหัสผ่านที่ดีขึ้นและทำให้รหัสผ่านเหล่านั้นปลอดภัย
+ba-next-step-blurb-3 =
+    ใช้ตัวจัดการรหัสผ่านเพื่อสร้างรหัสผ่านที่แข็งแกร่งและไม่ซ้ำใคร ตัวจัดการรหัสผ่านจะจัดเก็บการเข้าสู่ระบบทั้งหมดของคุณ
+    อย่างปลอดภัยเพื่อให้คุณสามารถเข้าถึงได้ในทุกอุปกรณ์ของคุณ
+faq1 = ฉันไม่รู้จักบริษัทหรือเว็บไซต์นี้ ทำไมฉันถึงอยู่ในการรั่วไหลนี้?
+faq2 = ทำไมจึงใช้เวลานานในการแจ้งให้ฉันทราบถึงการรั่วไหลนี้?
+faq3 = ฉันจะรู้ได้อย่างไรว่าเป็นอีเมลจริงจาก { -product-name }?
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 new-breaches-found =
     { $breachCount ->
        *[other] พบ { $breachCount } การรั่วไหลใหม่
     }
 sign-up-headline-1 = รับการแจ้งเตือนแบบต่อเนื่องด้วย { -brand-fxa }
 account-not-required = ไม่จำเป็นต้องใช้เบราว์เซอร์ { -brand-name } สำหรับ { -brand-fxa } คุณอาจได้รับข้อมูลเกี่ยวกับบริการของ { -brand-Mozilla }
+
+## Variables:
+##   $breachName (String) - Number of the breach
+
 was-your-info-exposed = ข้อมูลของคุณถูกเปิดเผยในการรั่วไหลของข้อมูล { $breachName } หรือไม่
-find-out-if = ตรวจสอบว่าข้อมูลของคุณถูกเปิดเผยในข้อมูลที่รั่วไหลนี้หรือไม่
 fb-not-comp = อีเมลนี้ไม่ปรากฏในการรั่วไหล { $breachName }
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 other-breaches-found =
     { $breachCount ->
        *[other] อย่างไรก็ตาม อีเมลดังกล่าวยังคงปรากฏใน { $breachCount } การรั่วไหลอื่น ๆ
     }
 fb-comp-only = อีเมลนปรากฏในการรั่วไหล { $breachName }
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 fb-comp-and-others =
     { $breachCount ->
        *[other] อีเมลนี้ปรากฏใน { $breachCount } การรั่วไหลของข้อมูลที่ทราบ รวมถึง { $breachName }
     }
+
+##
+
 no-other-breaches-found = ไม่พบการรั่วไหลอื่น ๆ จากการค้นหาแบบพื้นฐาน
 no-results-blurb = ขออภัย การรั่วไหลดังกล่าวไม่ได้อยู่ในฐานข้อมูลของเรา
-all-breaches-headline = การรั่วไหลทั้งหมดใน { -product-name }
-search-breaches = ค้นหาการรั่วไหล
 # "Appears in-page as: Showing: All Breaches"
 currently-showing = กำลังแสดง:
 
@@ -304,10 +338,14 @@ passwords-exposed = รหัสผ่านที่ถูกเปิดเผ
 known-data-breaches-exposed = การรั่วไหลของข้อมูลที่ทราบได้เปิดเผยข้อมูลของคุณ
 # Button
 see-additional-breaches = ดูการรั่วไหลเพิ่มเติม
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 scan-results-known-breaches = อีเมลนี้ปรากฏในการรั่วไหลของข้อมูลที่ทราบ { $breachCount } จุด
 # This string is shown at the top of the scan results page and is followed
 # by the email address that the user searched.
 # In page, it reads "Results for: searchedEmail@monitor.com"
+# Variables:
+#   $userEmail (String) - User email address
 results-for = ผลลัพธ์สำหรับ: { $userEmail }
 other-monitored-emails = อีเมลอื่น ๆ ที่ถูกตรวจสอบ
 email-verification-required = ต้องมีการยืนยันอีเมล
@@ -323,6 +361,8 @@ get-ongoing-breach-monitoring = รับการเฝ้าสังเกต
 # This is a button and follows a headline reading "Was your info exposed in the ___ breach?"
 find-out = ค้นหา
 new-unsub-error = คุณจะต้องเลิกบอกรับหนึ่งในอีเมลที่ { -product-name } ส่ง
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 other-known-breaches-found =
     { $breachCount ->
        *[other] อย่างไรก็ตาม อีเมลดังกล่าวยังคงปรากฏใน { $breachCount } การละเมิดอื่น ๆ ที่ทราบ
@@ -339,10 +379,12 @@ breach-overview-title = ภาพรวม
 # $breachTitle is the name of the breached company or website.
 # $breachDate and $addedDate are calendar dates.
 breach-overview-new = เมื่อ { $breachDate } { $breachTitle } ได้เกิดการรั่วไหล เมื่อค้นพบและยืนยันการรั่วไหลแล้ว การรั่วไหลดังกล่าวได้ถูกเพิ่มในฐานข้อมูลของเราเมื่อ { $addedDate }
-# Title appearing on the Preferences dashboard. 
+# Title appearing on the Preferences dashboard.
 monitor-preferences = การกำหนดลักษณะ { -product-short-name }
-# When a user is signed in, this appears in the drop down menu 
-# and is followed by the user's primary Firefox Account email. 
+# When a user is signed in, this appears in the drop down menu
+# and is followed by the user's primary Firefox Account email.
+# Variables:
+#   $userEmail (String) - User email address
 signed-in-as = ลงชื่อเข้าในชื่อ: { $userEmail }
 # Appears on the All Breaches page and is followed by a list of filter options
 # that a user can filter the visible breaches by.
@@ -359,6 +401,8 @@ email-sent = ส่งอีเมลแล้ว!
 want-to-add = ต้องการเพิ่มอีเมลอื่นหรือไม่?
 # This is part of a confirmation message that appears after a user has submitted
 # the form to add an additional email to Firefox Monitor.
+# Variables:
+#   $userEmail (String) - User email address
 verify-the-link = ตรวจสอบลิงก์ที่ส่งไปยัง { $userEmail } เพื่อเพิ่มลงใน { -product-name }
 
 ## These are part of a confirmation page that appears after a user has verified
@@ -374,15 +418,17 @@ sign-in-nested = ลงชื่อเข้า
 # form to add an additional email to Firefox Monitor. { $preferencesLink } is a link
 # to the Preferences page. The code and text for the link is generated elsewhere
 # using the { preferences } string.
+# Variables:
+#   $preferencesLink (String) - Link to preferences
 manage-all-emails = จัดการที่อยู่อีเมลทั้งหมดใน { $preferencesLink }
 # This string is a header on the user preferences page and
 # appears above a check-box list of user options which allow
 # the user to choose whether or not they want to receive breach
-# alerts for all of their monitored email addresses to a single 
+# alerts for all of their monitored email addresses to a single
 # email address.
 breach-alert-notifications = การแจ้งเตือนการรั่วไหล
 # This string is a label for the calendar date a breach is added to the database
-# and is followed by that date. 
+# and is followed by that date.
 breach-added-label = เพิ่มการรั่วไหลเมื่อ:
 # This message appears after a user has successfully updated their communication settings.
 changes-saved = บันทึกการเปลี่ยนแปลงแล้ว!
@@ -393,10 +439,14 @@ changes-saved = บันทึกการเปลี่ยนแปลงแ�
 
 ##
 
+mark-as-resolve-button = ทําเครื่องหมายว่าได้รับการแก้ไขแล้ว
+marked-as-resolved-label = ทําเครื่องหมายว่าได้รับการแก้ไขแล้ว
 undo-button = เลิกทำ
 go-to-dashboard-link = ไปที่แดชบอร์ด
 # This string appears above a breach resolution progress bar and indicates
 # the percentage of breaches a user has resolved. For instance, "27% complete".
+# Variables:
+#   $percentComplete (String) - Completion percentage
 progress-percent-complete = { $percentComplete }% เสร็จสมบูรณ์
 
 ## These strings contain nested markup that is later used to style the text inside of it.
@@ -405,6 +455,11 @@ progress-percent-complete = { $percentComplete }% เสร็จสมบูร
 
 ##
 
+# This string appears in resolved breach cards and is followed by
+# the date the user marked the breach as resolved.
+marked-resolved = ทําเครื่องหมายว่าแก้ไขแล้ว:
+hide-resolved-button = ซ่อนแก้ไขแล้ว
+show-resolved-button = แสดงการแก้ไขแล้ว
 # A status indicator that appears in the top right corner of new breach cards
 new-breach = ใหม่
 promo-fpn-cta = รับ { -brand-fpn }
@@ -421,12 +476,11 @@ promo-ecosystem-cta = ดูผลิตภัณฑ์ทั้งหมด
 
 ## The following messages are brands and should be kept entirely in English
 
+-brand-mozilla-vpn = Mozilla VPN
+-brand-relay = Firefox Relay
 
 ##
 
-# “account” can be localized, “Firefox” must be treated as a brand,
-# and kept in English.
--brand-fx-account = บัญชี Firefox
 
 ## Search Engine Optimization
 
@@ -443,7 +497,19 @@ sign-in = ลงชื่อเข้า
 
 ## Footer
 
-terms-and-privacy = ข้อกำหนดและความเป็นส่วนตัว
 
 ## Error page
+
+
+## Breach overview page
+
+search-breaches = ค้นหาการรั่วไหล
+
+## Public breach detail page
+
+
+## Floating banner
+
+
+## Firefox Monitor -> Mozilla Monitor rebrand banner
 

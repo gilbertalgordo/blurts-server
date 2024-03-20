@@ -32,11 +32,16 @@ settings-email-limit-info =
 settings-email-verification-callout = Требуется верификация электронной почты
 settings-resend-email-verification-link = Отправить письмо подтверждения заново
 settings-add-email-button = Добавить адрес электронной почты
+# Deprecated
 settings-delete-email-button = Удалить адрес электронной почты
+settings-remove-email-button-label = Удалить
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Перестать отслеживать { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Найден в { $breachCount } известной утечке.
@@ -49,13 +54,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = Отменить подписку на { -brand-premium }
 settings-cancel-premium-subscription-info = Ваша подписка вернется к бесплатному аккаунту после окончания текущего платежного цикла. Ваши результаты проверки защиты конфиденциальности будут удалены без возможности восстановления, и вы сможете отслеживать утечки данных только для 1 адреса электронной почты.
-settings-cancel-premium-subscription-link-label = Отменить с вашего { -brand-fx-account }
 
 ## Deactivate account
 
 settings-deactivate-account-title = Деактивировать аккаунт
-settings-deactivate-account-info = Вы можете деактивировать { -product-short-name }, удалив свой { -brand-fx-account(case: "nominative") }.
-settings-fxa-link-label = Перейти в настройки { -brand-firefox }.
+settings-deactivate-account-info-2 = Вы можете деактивировать { -product-short-name }, удалив свой { -brand-mozilla-account }.
+settings-fxa-link-label-3 = Перейти в настройки { -brand-mozilla-account }.
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = Удалить аккаунт { -brand-monitor }
+settings-delete-monitor-free-account-description = Это навсегда удалит ваш аккаунт { -brand-monitor } и отключит все уведомления.
+settings-delete-monitor-free-account-cta-label = Удалить аккаунт
+settings-delete-monitor-free-account-dialog-title = Ваш аккаунт { -brand-monitor } будет удалён навсегда
+settings-delete-monitor-free-account-dialog-lead = Вся информация вашего аккаунта { -brand-monitor } будет удалена, и мы больше не будем отслеживать новые утечки данных. Это действие не приведет к удалению вашего аккаунта { -brand-mozilla }.
+settings-delete-monitor-free-account-dialog-cta-label = Удалить аккаунт
+settings-delete-monitor-free-account-dialog-cancel-button-label = Не важно, верните меня обратно
+settings-delete-monitor-plus-account-title = Удалить аккаунт { -brand-monitor }
+settings-delete-monitor-plus-account-description = Это навсегда удалит ваш аккаунт { -brand-monitor } и немедленно прекратит вашу платную подписку { -brand-monitor-plus }.
+settings-delete-monitor-plus-account-cta-label = Удалить аккаунт
+settings-delete-monitor-plus-account-dialog-title = Ваш аккаунт { -brand-monitor } будет удалён навсегда
+settings-delete-monitor-plus-account-dialog-lead-p1 = Вся информация вашего аккаунта { -brand-monitor } будет удалена, и мы больше не будем отслеживать новые утечки данных или уязвимости брокеров данных. Это действие не приведет к удалению вашего аккаунта { -brand-mozilla }.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Ваша платная подписка заканчивается сегодня, и вы не получите пропорциональное вознаграждение за оставшуюся часть подписки.
+settings-delete-monitor-plus-account-dialog-cta-label = Удалить аккаунт
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Не важно, верните меня обратно
+settings-delete-monitor-account-confirmation-toast-label = Ваш аккаунт { -brand-monitor } удалён навсегда.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Закрыть
 
 ## Add email dialog
 

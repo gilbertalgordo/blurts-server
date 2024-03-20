@@ -30,11 +30,16 @@ settings-email-limit-info =
 settings-email-verification-callout = E-mailferifikaasje fereaske
 settings-resend-email-verification-link = Ferifikaasje-e-mailberjocht opnij ferstjoere
 settings-add-email-button = E-mailadres tafoegje
+# Deprecated
 settings-delete-email-button = E-mailadres fuortsmite
+settings-remove-email-button-label = Fuortsmite
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Kontrolearjen fan { $emailAddress } stopje
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Komt foar yn { $breachCount } bekend datalek.
@@ -45,13 +50,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = Abonnemint op { -brand-premium } opsizze
 settings-cancel-premium-subscription-info = Jo abonnemint wurdt weromset nei in fergees account neidat de aktuele fakturearingssyklus ôfrûn is. De resultaten fan jo privacybeskermingsscan wurde permanint fuortsmiten en jo hawwe datalekmonitoring foar mar ien e-mailadres.
-settings-cancel-premium-subscription-link-label = Annulearje fan jo { -brand-fx-account } ôf
 
 ## Deactivate account
 
 settings-deactivate-account-title = Account de-aktivearje
-settings-deactivate-account-info = Jo kinne { -product-short-name } de-aktivearje troch jo { -brand-fx-account } fuort te smiten.
-settings-fxa-link-label = Gean nei { -brand-firefox }-ynstellingen
+settings-deactivate-account-info-2 = Jo kinne { -product-short-name } de-aktivearje troch jo { -brand-mozilla-account } fuort te smiten.
+settings-fxa-link-label-3 = Nei { -brand-mozilla-account }-ynstellingen
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = { -brand-monitor }-account fuortsmite
+settings-delete-monitor-free-account-description = Dit sil jo { -brand-monitor }-account permanint fuortsmite en alle notifikaasjes útskeakelje.
+settings-delete-monitor-free-account-cta-label = Account fuortsmite
+settings-delete-monitor-free-account-dialog-title = Jo { -brand-monitor }-account wurdt permanint fuortsmiten
+settings-delete-monitor-free-account-dialog-lead = Al jo { -brand-monitor }-accountgegevens wurde fuortsmiten en wy kontrolearje net mear op nije datalekken. Dit sil jo { -brand-mozilla }-account net fuortsmite.
+settings-delete-monitor-free-account-dialog-cta-label = Account fuortsmite
+settings-delete-monitor-free-account-dialog-cancel-button-label = Lit mar, bring my werom
+settings-delete-monitor-plus-account-title = { -brand-monitor }-account fuortsmite
+settings-delete-monitor-plus-account-description = Hjirmei wurdt jo { -brand-monitor }-account permanint fuortsmiten en wurdt jo betelle { -brand-monitor-plus }-abonnemint daliks beëinige.
+settings-delete-monitor-plus-account-cta-label = Account fuortsmite
+settings-delete-monitor-plus-account-dialog-title = Jo { -brand-monitor }-account wurdt permanint fuortsmiten
+settings-delete-monitor-plus-account-dialog-lead-p1 = Al jo { -brand-monitor }-accountgegevens wurde fuortsmiten en wy kontrolearje net mear op nije datalekken of lekken nei gegevenshannelers. Dit sil jo { -brand-mozilla }-account net fuortsmite.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Jo betelle abonnemint einiget hjoed en de rest fan jo abonnemint wurdt net nei rato fakturearre.
+settings-delete-monitor-plus-account-dialog-cta-label = Account fuortsmite
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Lit mar, bring my werom
+settings-delete-monitor-account-confirmation-toast-label = Jo { -brand-monitor }-account is no permanint fuortsmiten
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Slute
 
 ## Add email dialog
 

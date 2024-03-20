@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { AriaDialogProps, useButton, useDialog } from "react-aria";
 import styles from "./Dialog.module.scss";
 import { CloseBtn } from "../../server/Icons";
@@ -13,6 +13,7 @@ export type Props = {
   onDismiss?: () => void;
   title?: ReactNode;
   illustration?: ReactNode;
+  variant?: "vertical" | "horizontal";
 } & AriaDialogProps;
 
 export const Dialog = ({
@@ -20,23 +21,31 @@ export const Dialog = ({
   onDismiss,
   title,
   illustration,
+  variant,
   ...otherProps
 }: Props) => {
   const l10n = useL10n();
   const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogTitleRef = useRef<HTMLDivElement>(null);
   const { dialogProps, titleProps } = useDialog(otherProps, dialogRef);
-
   const dismissButtonRef = useRef<HTMLButtonElement>(null);
   const dismissButtonProps = useButton(
     { onPress: onDismiss },
-    dismissButtonRef
+    dismissButtonRef,
   ).buttonProps;
+
+  useEffect(() => {
+    dialogTitleRef.current?.focus();
+  }, []);
+
   const dismissButton =
     typeof onDismiss === "function" ? (
       <button
         {...dismissButtonProps}
         ref={dismissButtonRef}
         className={styles.dismissButton}
+        // TODO: Add unit test when changing this code:
+        /* c8 ignore next */
         onClick={() => onDismiss()}
       >
         <CloseBtn
@@ -45,20 +54,27 @@ export const Dialog = ({
           height="14"
         />
       </button>
-    ) : null;
+    ) : /* c8 ignore next */
+    null;
 
   return (
-    <div {...dialogProps} ref={dialogRef} className={styles.dialog}>
+    <div
+      {...dialogProps}
+      ref={dialogRef}
+      className={`${styles.dialog} ${variant ? styles[variant] : ""}`}
+    >
       {dismissButton}
-      {illustration && (
-        <div className={styles.illustrationWrapper}>{illustration}</div>
-      )}
-      {title && (
-        <div {...titleProps} className={styles.title}>
-          {title}
-        </div>
-      )}
-      {children}
+      <div tabIndex={-1} ref={dialogTitleRef} className={styles.header}>
+        {illustration && (
+          <div className={styles.illustrationWrapper}>{illustration}</div>
+        )}
+        {title && (
+          <div {...titleProps} className={styles.title}>
+            {title}
+          </div>
+        )}
+      </div>
+      <div className={styles.content}>{children}</div>
     </div>
   );
 };

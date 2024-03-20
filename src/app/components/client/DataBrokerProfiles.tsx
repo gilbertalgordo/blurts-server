@@ -9,14 +9,18 @@ import styles from "./DataBrokerProfiles.module.scss";
 import { useL10n } from "../../hooks/l10n";
 import IconChevronDown from "./assets/icon-chevron-down.svg";
 import { useState } from "react";
-import { ScanResult } from "../../functions/server/onerep";
+import { OnerepScanResultRow } from "knex/types/tables";
+import { getDataBrokerName } from "../../functions/universal/dataBrokerNames";
+import { OpenInNew } from "../server/Icons";
+import { useTelemetry } from "../../hooks/useTelemetry";
 
 export type Props = {
-  data: ScanResult[];
+  data: OnerepScanResultRow[];
 };
 
 export const DataBrokerProfiles = (props: Props) => {
   const l10n = useL10n();
+  const recordTelemetry = useTelemetry();
   const [showAllProfiles, setShowAllProfiles] = useState(false);
 
   return (
@@ -36,15 +40,20 @@ export const DataBrokerProfiles = (props: Props) => {
         className={`${styles.viewProfilesToggle} ${
           showAllProfiles ? styles.active : ""
         }`}
-        onClick={() => setShowAllProfiles(!showAllProfiles)}
+        onClick={() => {
+          setShowAllProfiles(!showAllProfiles);
+          recordTelemetry("button", "click", {
+            button_id: "see_more_profiles",
+          });
+        }}
       >
         <span>
           {showAllProfiles
             ? l10n.getString(
-                "fix-flow-data-broker-profiles-view-data-broker-profiles-button-view-less"
+                "fix-flow-data-broker-profiles-view-data-broker-profiles-button-view-less",
               )
             : l10n.getString(
-                "fix-flow-data-broker-profiles-view-data-broker-profiles-button-view-more"
+                "fix-flow-data-broker-profiles-view-data-broker-profiles-button-view-more",
               )}
         </span>
         <Image alt="" src={IconChevronDown} />
@@ -54,24 +63,37 @@ export const DataBrokerProfiles = (props: Props) => {
 };
 
 export type DataBrokerProfileCardProps = {
-  data: ScanResult;
+  data: OnerepScanResultRow;
 };
 
 export const DataBrokerProfileCard = (props: DataBrokerProfileCardProps) => {
   const l10n = useL10n();
+  const recordTelemetry = useTelemetry();
 
   return (
     <div className={styles.dataBrokerProfileCard}>
-      <div
-        data-broker={props.data.data_broker}
-        className={styles.imagePlaceholder}
-      />
-      {/* TODO: Add logic to show unique image per data broker */}
-      {/* <Image src={} alt={props.data.data_broker} /> */}
-      <a href={props.data.link}>
+      <span className={styles.dataBrokerName}>
+        {getDataBrokerName(props.data.data_broker)}
+      </span>
+      <a
+        href={props.data.link}
+        target="_blank"
+        onClick={() => {
+          recordTelemetry("link", "click", {
+            link_id: "viewed_data_broker",
+          });
+        }}
+      >
         {l10n.getString(
-          "fix-flow-data-broker-profiles-view-data-broker-profiles-view-profile"
+          "fix-flow-data-broker-profiles-view-data-broker-profiles-view-profile",
         )}
+        <span className={styles.openInNewTab}>
+          <OpenInNew
+            alt={l10n.getString("open-in-new-tab-alt")}
+            width="13"
+            height="13"
+          />
+        </span>
       </a>
     </div>
   );

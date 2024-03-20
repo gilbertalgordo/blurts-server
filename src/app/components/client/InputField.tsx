@@ -7,22 +7,25 @@
 import { useRef } from "react";
 import { AriaTextFieldProps, useTextField } from "react-aria";
 import styles from "./InputField.module.scss";
+import { ErrorIcon } from "../server/Icons";
+import { useL10n } from "../../hooks/l10n";
 
 export const InputField = (props: AriaTextFieldProps) => {
-  const { errorMessage, isRequired, label, validationState, value } = props;
+  const { isRequired, label, isInvalid, value } = props;
   const inputRef = useRef(null);
-  const { errorMessageProps, inputProps, labelProps } = useTextField(
-    props,
-    inputRef
-  );
-  const isInvalid = validationState === "invalid";
-  const showError = errorMessage && isInvalid;
+  const { errorMessageProps, validationErrors, inputProps, labelProps } =
+    useTextField(props, inputRef);
+  const l10n = useL10n();
 
   return (
     <div className={styles.input}>
       <label {...labelProps} className={styles.inputLabel}>
         {label}
-        {isRequired ? <span aria-hidden="true">*</span> : ""}
+        {
+          // TODO: Add unit test when changing this code:
+          /* c8 ignore next */
+          isRequired ? <span aria-hidden="true">*</span> : ""
+        }
       </label>
       <input
         {...inputProps}
@@ -31,9 +34,19 @@ export const InputField = (props: AriaTextFieldProps) => {
           isInvalid ? styles.hasError : ""
         }`}
       />
-      {showError && (
+      {isInvalid && (
         <div {...errorMessageProps} className={styles.inputMessage}>
-          {errorMessage}
+          <ErrorIcon
+            alt={l10n.getString("onboarding-enter-details-input-error-alt")}
+          />
+          {
+            // We always pass in a string at the time of writing, so we can't
+            // hit the "else" path with tests:
+            /* c8 ignore next 3 */
+            typeof props.errorMessage === "string"
+              ? props.errorMessage
+              : validationErrors.join(" ")
+          }
         </div>
       )}
     </div>

@@ -4,11 +4,12 @@
 
 import { cookies } from "next/headers";
 import { Session } from "next-auth";
+import { EmailAddressRow } from "knex/types/tables";
 
 import { getBreaches } from "./getBreaches";
 import { appendBreachResolutionChecklist } from "./breachResolution";
 import { BreachDataTypes } from "../universal/breach";
-import { getSubscriberByEmail } from "../../../../src/db/tables/subscribers.js";
+import { getSubscriberByFxaUid } from "../../../../src/db/tables/subscribers.js";
 import {
   BundledVerifiedEmails,
   getAllEmailsAndBreaches,
@@ -17,7 +18,6 @@ import {
   SubscriberBreach,
   getSubBreaches,
 } from "../../../utils/subscriberBreaches";
-import { EmailRow } from "../../../db/tables/emailAddresses";
 import { HibpLikeDbBreach } from "../../../utils/hibp";
 
 //TODO: deprecate with MNTOR-2021
@@ -29,7 +29,7 @@ export type UserBreaches = {
   emailTotalCount: number;
   emailSelectIndex: number;
   breachesData: {
-    unverifiedEmails: EmailRow[];
+    unverifiedEmails: EmailAddressRow[];
     verifiedEmails: BundledVerifiedEmails[];
   };
 };
@@ -42,7 +42,10 @@ export async function getUserBreaches({
   user: Session["user"];
   options?: Parameters<typeof appendBreachResolutionChecklist>[1];
 }): Promise<UserBreaches> {
-  const subscriber = await getSubscriberByEmail(user.email);
+  if (!user.subscriber?.fxa_uid) {
+    throw new Error("No fxa_uid found in session");
+  }
+  const subscriber = await getSubscriberByFxaUid(user.subscriber.fxa_uid);
   const allBreaches = await getBreaches();
   const breachesData = await getAllEmailsAndBreaches(subscriber, allBreaches);
   appendBreachResolutionChecklist(breachesData, options);
@@ -92,62 +95,47 @@ export async function getUserBreaches({
  * NOTE: new function to replace getUserBreaches
  *
  * @param user
+ * @param user.user
+ * @param user.countryCode
  */
-export async function getSubscriberBreaches(
-  user: Session["user"]
-): Promise<SubscriberBreach[]> {
-  const subscriber = await getSubscriberByEmail(user.email);
+export async function getSubscriberBreaches({
+  user,
+  countryCode,
+}: {
+  user: Session["user"];
+  countryCode: string;
+}): Promise<SubscriberBreach[]> {
+  if (!user.subscriber?.fxa_uid) {
+    throw new Error("No fxa_uid found in session");
+  }
+  const subscriber = await getSubscriberByFxaUid(user.subscriber.fxa_uid);
+  if (!subscriber) {
+    throw new Error("No subscriber found for the given user data.");
+  }
   const allBreaches = await getBreaches();
-  const breachesData = await getSubBreaches(subscriber, allBreaches);
+  const breachesData = await getSubBreaches(
+    subscriber,
+    allBreaches,
+    countryCode,
+  );
   return breachesData;
 }
 
-interface GuidedExperienceBreaches {
+export interface GuidedExperienceBreaches {
   highRisk: {
     ssnBreaches: SubscriberBreach[];
     creditCardBreaches: SubscriberBreach[];
     pinBreaches: SubscriberBreach[];
     bankBreaches: SubscriberBreach[];
   };
-  passwordBreaches: SubscriberBreach[];
-}
-
-// NOTE: Better name for this function?
-export function guidedExperienceBreaches(
-  subscriberBreaches: SubscriberBreach[]
-): GuidedExperienceBreaches {
-  const guidedExperienceBreaches: GuidedExperienceBreaches = {
-    highRisk: {
-      ssnBreaches: [],
-      creditCardBreaches: [],
-      pinBreaches: [],
-      bankBreaches: [],
-    },
-    passwordBreaches: [],
+  passwordBreaches: {
+    passwords: SubscriberBreach[];
+    securityQuestions: SubscriberBreach[];
   };
-  subscriberBreaches.forEach((b) => {
-    // high risks
-    if (b.dataClasses.includes(BreachDataTypes.SSN)) {
-      guidedExperienceBreaches.highRisk.ssnBreaches.push(b);
-    }
-
-    if (b.dataClasses.includes(BreachDataTypes.CreditCard)) {
-      guidedExperienceBreaches.highRisk.creditCardBreaches.push(b);
-    }
-
-    if (b.dataClasses.includes(BreachDataTypes.PIN)) {
-      guidedExperienceBreaches.highRisk.pinBreaches.push(b);
-    }
-
-    if (b.dataClasses.includes(BreachDataTypes.BankAccount)) {
-      guidedExperienceBreaches.highRisk.bankBreaches.push(b);
-    }
-
-    // other
-    if (b.dataClasses.includes(BreachDataTypes.Passwords)) {
-      guidedExperienceBreaches.passwordBreaches.push(b);
-    }
-  });
-
-  return guidedExperienceBreaches;
+  securityRecommendations: {
+    phoneNumber: SubscriberBreach[];
+    emailAddress: SubscriberBreach[];
+    IPAddress: SubscriberBreach[];
+  };
+  emails: string[];
 }

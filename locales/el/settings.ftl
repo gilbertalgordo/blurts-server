@@ -30,11 +30,16 @@ settings-email-limit-info =
 settings-email-verification-callout = Απαιτείται επαλήθευση email
 settings-resend-email-verification-link = Εκ νέου αποστολή email επαλήθευσης
 settings-add-email-button = Προσθήκη διεύθυνσης email
+# Deprecated
 settings-delete-email-button = Διαγραφή διεύθυνσης email
+settings-remove-email-button-label = Αφαίρεση
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Διακοπή εποπτείας του { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Εμφανίζεται σε { $breachCount } γνωστή παραβίαση.
@@ -44,13 +49,33 @@ settings-email-number-of-breaches-info =
 ## Cancel Premium subscription
 
 settings-cancel-premium-subscription-title = Ακύρωση συνδρομής { -brand-premium }
-settings-cancel-premium-subscription-link-label = Κάντε ακύρωση από τον { -brand-fx-account(case: "acc", capitalization: "lower") } σας
+settings-cancel-premium-subscription-info = Η συνδρομή σας θα μετατραπεί σε δωρεάν λογαριασμό μετά το πέρας του τρέχοντος κύκλου χρέωσης. Τα αποτελέσματα της σάρωσης προστασίας απορρήτου θα διαγραφούν οριστικά και θα έχετε την εποπτεία μόνο 1 διεύθυνσης email για παραβιάσεις δεδομένων.
 
 ## Deactivate account
 
 settings-deactivate-account-title = Απενεργοποίηση λογαριασμού
-settings-deactivate-account-info = Μπορείτε να απενεργοποιήσετε το { -product-short-name } διαγράφοντας τον { -brand-fx-account(case: "acc", capitalization: "lower") } σας.
-settings-fxa-link-label = Μεταβείτε στις ρυθμίσεις του { -brand-firefox }
+settings-deactivate-account-info-2 = Μπορείτε να απενεργοποιήσετε το { -product-short-name } διαγράφοντας τον { -brand-mozilla-account(case: "acc", capitalization: "lower") } σας.
+settings-fxa-link-label-3 = Μετάβαση στις ρυθμίσεις { -brand-mozilla-account(case: "gen", capitalization: "lower") }
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = Διαγραφή λογαριασμού { -brand-monitor }
+settings-delete-monitor-free-account-description = Αυτή η ενέργεια θα διαγράψει οριστικά τον λογαριασμό σας στο { -brand-monitor } και θα απενεργοποιήσει όλες τις ειδοποιήσεις.
+settings-delete-monitor-free-account-cta-label = Διαγραφή λογαριασμού
+settings-delete-monitor-free-account-dialog-title = Ο λογαριασμός σας στο { -brand-monitor } θα διαγραφεί οριστικά
+settings-delete-monitor-free-account-dialog-lead = Όλες οι πληροφορίες του λογαριασμού σας στο { -brand-monitor } θα διαγραφούν και δεν θα εποπτεύουμε πλέον για νέες παραβιάσεις δεδομένων. Αυτή η ενέργεια δεν θα διαγράψει τον λογαριασμό σας στη { -brand-mozilla }.
+settings-delete-monitor-free-account-dialog-cta-label = Διαγραφή λογαριασμού
+settings-delete-monitor-free-account-dialog-cancel-button-label = Άλλαξα γνώμη, θέλω να επιστρέψω
+settings-delete-monitor-plus-account-title = Διαγραφή λογαριασμού { -brand-monitor }
+settings-delete-monitor-plus-account-description = Αυτή η ενέργεια θα διαγράψει οριστικά τον λογαριασμό σας στο { -brand-monitor } και θα τερματίσει άμεσα την επί πληρωμή συνδρομή σας στο { -brand-monitor-plus }.
+settings-delete-monitor-plus-account-cta-label = Διαγραφή λογαριασμού
+settings-delete-monitor-plus-account-dialog-title = Ο λογαριασμός σας στο { -brand-monitor } θα διαγραφεί οριστικά
+settings-delete-monitor-plus-account-dialog-lead-p1 = Όλες οι πληροφορίες του λογαριασμού σας στο { -brand-monitor } θα διαγραφούν και δεν θα εποπτεύουμε πλέον για νέες παραβιάσεις δεδομένων ή εκθέσεις σε εμπόρους δεδομένων. Αυτή η ενέργεια δεν θα διαγράψει τον λογαριασμό σας στη { -brand-mozilla }.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Η επί πληρωμή συνδρομή σας θα λήξει σήμερα και δεν θα λάβετε αναλογική επιστροφή χρημάτων για το υπόλοιπο της συνδρομής σας.
+settings-delete-monitor-plus-account-dialog-cta-label = Διαγραφή λογαριασμού
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Άλλαξα γνώμη, θέλω να επιστρέψω
+settings-delete-monitor-account-confirmation-toast-label = Ο λογαριασμός σας στο { -brand-monitor } έχει πλέον διαγραφεί οριστικά.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Απόρριψη
 
 ## Add email dialog
 

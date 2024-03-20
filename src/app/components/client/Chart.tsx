@@ -5,36 +5,61 @@
 "use client";
 
 import { CSSProperties } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useL10n } from "../../hooks/l10n";
 import styles from "./Chart.module.scss";
 import { QuestionMarkCircle } from "../server/Icons";
 import { useOverlayTrigger } from "react-aria";
 import { useOverlayTriggerState } from "react-stately";
-import { Button } from "../server/Button";
+import { Button } from "../client/Button";
 import { ModalOverlay } from "./dialog/ModalOverlay";
 import { Dialog } from "./dialog/Dialog";
 import ModalImage from "../client/assets/modal-default-img.svg";
-import Image from "next/image";
-import Link from "next/link";
+import { DashboardSummary } from "../../functions/server/dashboard";
+import { WaitlistDialog } from "./SubscriberWaitlistDialog";
+import { useTelemetry } from "../../hooks/useTelemetry";
+import {
+  CONST_MAX_NUM_ADDRESSES,
+  CONST_ONEREP_MAX_SCANS_THRESHOLD,
+} from "../../../constants";
 
 export type Props = {
   data: Array<[string, number]>;
-  hasRunScan: boolean;
+  isEligibleForFreeScan: boolean;
+  isEligibleForPremium: boolean;
+  isPremiumUser: boolean;
+  scanInProgress: boolean;
+  isShowFixed: boolean;
+  summary: DashboardSummary;
+  totalNumberOfPerformedScans?: number;
 };
 
 export const DoughnutChart = (props: Props) => {
   const l10n = useL10n();
+  const recordTelemetry = useTelemetry();
 
-  const explainerDialogState = useOverlayTriggerState({});
+  const explainerDialogState = useOverlayTriggerState({
+    onOpenChange: (isOpen) => {
+      recordTelemetry("popup", isOpen ? "view" : "exit", {
+        popup_id: `number_of_exposures_info`,
+      });
+    },
+  });
   const explainerDialogTrigger = useOverlayTrigger(
     { type: "dialog" },
-    explainerDialogState
+    explainerDialogState,
   );
-
+  const waitlistDialogState = useOverlayTriggerState({});
+  const waitlistDialogTrigger = useOverlayTrigger(
+    { type: "dialog" },
+    waitlistDialogState,
+  );
   const sumOfFixedExposures = props.data.reduce(
     (total, [_label, num]) => total + num,
-    0
+    0,
   );
+
   const percentages = props.data.map(([label, num]) => {
     return [label, num / sumOfFixedExposures] as const;
   });
@@ -75,19 +100,34 @@ export const DoughnutChart = (props: Props) => {
       />
     );
   });
-  const modalContent = (
+
+  const includesDataBrokers = props.isEligibleForPremium || props.isPremiumUser;
+  const modalContentActionNeeded = (
     <div className={styles.modalBodyContent}>
       <p>
-        {l10n.getString("modal-active-number-of-exposures-part-one", {
-          limit: 5,
-        })}
+        {l10n.getString(
+          includesDataBrokers
+            ? "modal-active-number-of-exposures-part-one-premium"
+            : "modal-active-number-of-exposures-part-one-all",
+          {
+            limit: CONST_MAX_NUM_ADDRESSES,
+          },
+        )}
       </p>
       <p>{l10n.getString("modal-active-number-of-exposures-part-two")}</p>
-      <p>{l10n.getString("modal-active-number-of-exposures-part-three")}</p>
+      <p>
+        {l10n.getString(
+          includesDataBrokers
+            ? "modal-active-number-of-exposures-part-three-premium"
+            : "modal-active-number-of-exposures-part-three-all",
+        )}
+      </p>
       <div className={styles.confirmButtonWrapper}>
         <Button
           variant="primary"
-          onClick={() => explainerDialogState.close()}
+          // TODO: Add unit test when changing this code:
+          /* c8 ignore next */
+          onPress={() => explainerDialogState.close()}
           autoFocus={true}
           className={styles.startButton}
         >
@@ -97,14 +137,72 @@ export const DoughnutChart = (props: Props) => {
     </div>
   );
 
-  const prompt = (
-    <div className={styles.prompt}>
-      <p>{l10n.getString("exposure-chart-returning-user-upgrade-prompt")}</p>
-      <Link href="/redesign/user/welcome">
-        {l10n.getString("exposure-chart-returning-user-upgrade-prompt-cta")}
-      </Link>
+  const modalContentFixed = (
+    <div className={styles.modalBodyContent}>
+      {l10n.getString(
+        includesDataBrokers
+          ? "modal-fixed-number-of-exposures-part-one"
+          : "modal-fixed-number-of-exposures-all",
+      )}
+      {includesDataBrokers &&
+        l10n.getString("modal-fixed-number-of-exposures-part-two")}
     </div>
   );
+
+  const getPromptContent = () => {
+    if (!props.scanInProgress && props.isEligibleForFreeScan) {
+      return (
+        <>
+          <p>
+            {l10n.getString("exposure-chart-returning-user-upgrade-prompt")}
+          </p>
+          {typeof props.totalNumberOfPerformedScans === "undefined" ||
+          props.totalNumberOfPerformedScans <
+            CONST_ONEREP_MAX_SCANS_THRESHOLD ? (
+            <Link
+              href="/user/welcome/free-scan?referrer=dashboard"
+              onClick={() => {
+                recordTelemetry("link", "click", {
+                  link_id: "exposures_chart_free_scan",
+                });
+              }}
+            >
+              {l10n.getString(
+                "exposure-chart-returning-user-upgrade-prompt-cta",
+              )}
+            </Link>
+          ) : (
+            <>
+              <Button
+                variant="tertiary"
+                {...waitlistDialogTrigger.triggerProps}
+              >
+                {l10n.getString(
+                  "exposure-chart-returning-user-upgrade-prompt-cta",
+                )}
+              </Button>
+              <WaitlistDialog
+                dialogTriggerState={waitlistDialogState}
+                {...waitlistDialogTrigger.overlayProps}
+              />
+            </>
+          )}
+        </>
+      );
+    }
+
+    if (props.scanInProgress) {
+      return (
+        <p>
+          {l10n.getFragment("exposure-chart-scan-in-progress-prompt", {
+            elems: { b: <strong /> },
+          })}
+        </p>
+      );
+    }
+  };
+
+  const promptContent = getPromptContent();
 
   return (
     <>
@@ -133,29 +231,53 @@ export const DoughnutChart = (props: Props) => {
               className={styles.gutter}
             />
             {slices}
-            {l10n.getFragment("exposure-chart-heading", {
-              elems: {
-                nr: (
-                  <text
-                    className={styles.headingNr}
-                    fontSize={headingNumberSize}
-                    x={diameter / 2}
-                    y={diameter / 2 - headingGap / 2}
-                    textAnchor="middle"
-                  />
-                ),
-                label: (
-                  <text
-                    className={styles.headingLabel}
-                    fontSize={headingLabelSize}
-                    x={diameter / 2}
-                    y={diameter / 2 + headingLabelSize + headingGap / 2}
-                    textAnchor="middle"
-                  />
-                ),
-              },
-              vars: { nr: sumOfFixedExposures },
-            })}
+            {props.isShowFixed
+              ? l10n.getFragment("exposure-chart-heading-fixed", {
+                  elems: {
+                    nr: (
+                      <text
+                        className={styles.headingNr}
+                        fontSize={headingNumberSize}
+                        x={diameter / 2}
+                        y={diameter / 2 - headingGap / 2}
+                        textAnchor="middle"
+                      />
+                    ),
+                    label: (
+                      <text
+                        className={styles.headingLabel}
+                        fontSize={headingLabelSize}
+                        x={diameter / 2}
+                        y={diameter / 2 + headingLabelSize + headingGap / 2}
+                        textAnchor="middle"
+                      />
+                    ),
+                  },
+                  vars: { nr: sumOfFixedExposures },
+                })
+              : l10n.getFragment("exposure-chart-heading", {
+                  elems: {
+                    nr: (
+                      <text
+                        className={styles.headingNr}
+                        fontSize={headingNumberSize}
+                        x={diameter / 2}
+                        y={diameter / 2 - headingGap / 2}
+                        textAnchor="middle"
+                      />
+                    ),
+                    label: (
+                      <text
+                        className={styles.headingLabel}
+                        fontSize={headingLabelSize}
+                        x={diameter / 2}
+                        y={diameter / 2 + headingLabelSize + headingGap / 2}
+                        textAnchor="middle"
+                      />
+                    ),
+                  },
+                  vars: { nr: sumOfFixedExposures },
+                })}
           </svg>
           <div className={styles.legend}>
             <table>
@@ -188,13 +310,27 @@ export const DoughnutChart = (props: Props) => {
                 ))}
               </tbody>
             </table>
-            {!props.hasRunScan ? prompt : null}
+            {promptContent && (
+              <div className={styles.prompt}>{promptContent}</div>
+            )}
           </div>
         </div>
         <figcaption>
-          {l10n.getString("exposure-chart-caption")}
+          {props.isShowFixed
+            ? l10n.getFragment("exposure-chart-caption-fixed", {
+                vars: {
+                  total_fixed_exposures_num:
+                    props.summary.dataBreachFixedDataPointsNum +
+                    props.summary.dataBrokerAutoFixedDataPointsNum +
+                    props.summary.dataBrokerManuallyResolvedDataPointsNum,
+                  total_exposures_num: props.summary.totalDataPointsNum,
+                },
+              })
+            : l10n.getString("exposure-chart-caption")}
           <button
             aria-label={l10n.getString("modal-open-alt")}
+            // TODO: Add unit test when changing this code:
+            /* c8 ignore next */
             onClick={() => explainerDialogState.open()}
           >
             <QuestionMarkCircle
@@ -212,11 +348,17 @@ export const DoughnutChart = (props: Props) => {
           isDismissable={true}
         >
           <Dialog
-            title={l10n.getString("modal-active-number-of-exposures-title")}
+            title={
+              props.isShowFixed
+                ? l10n.getString("modal-fixed-number-of-exposures-title")
+                : l10n.getString("modal-active-number-of-exposures-title")
+            }
             illustration={<Image src={ModalImage} alt="" />}
+            // TODO: Add unit test when changing this code:
+            /* c8 ignore next */
             onDismiss={() => explainerDialogState.close()}
           >
-            {modalContent}
+            {props.isShowFixed ? modalContentFixed : modalContentActionNeeded}
           </Dialog>
         </ModalOverlay>
       )}

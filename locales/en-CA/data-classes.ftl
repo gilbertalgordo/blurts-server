@@ -25,6 +25,7 @@ career-levels = Career levels
 cellular-network-names = Cellular network names
 charitable-donations = Charitable donations
 chat-logs = Chat logs
+clothing-sizes = Clothing sizes
 credit-card-cvv = Credit card CVV
 credit-cards = Credit cards
 credit-status-information = Credit status information
@@ -77,7 +78,10 @@ job-titles = Job titles
 # This string refers to vehicle license plates. 
 licence-plates = Licence Plates
 living-costs = Living costs
+# This string refers to financial loans.
+loan-information = Loan information
 login-histories = Login histories
+loyalty-program-details = Loyalty program details
 mac-addresses = MAC addresses
 marital-statuses = Marital statuses
 # Mnemonic phrases are a group of words used to access the content of cryptocurrency wallets.
@@ -138,6 +142,7 @@ spouses-names = Spouses names
 support-tickets = Support tickets
 survey-results = Survey results
 taxation-records = Taxation records
+telecommunications-carrier = Telecommunications carriers
 time-zones = Time zones
 travel-habits = Travel habits
 user-statuses = User statuses

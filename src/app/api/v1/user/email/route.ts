@@ -6,7 +6,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import AppConstants from "../../../../../appConstants";
 
-import { getSubscriberByEmail } from "../../../../../db/tables/subscribers";
+import { getSubscriberByFxaUid } from "../../../../../db/tables/subscribers";
 import { addSubscriberUnverifiedEmailHash } from "../../../../../db/tables/emailAddresses.js";
 
 import { sendVerificationEmail } from "../../../utils/email";
@@ -14,7 +14,7 @@ import { sendVerificationEmail } from "../../../utils/email";
 import { validateEmailAddress } from "../../../../../utils/emailAddress";
 import { getL10n } from "../../../../functions/server/l10n";
 import { initEmail } from "../../../../../utils/email";
-import { Subscriber } from "../../../../(nextjs_migration)/(authenticated)/user/breaches/breaches";
+import { CONST_MAX_NUM_ADDRESSES } from "../../../../../constants";
 
 interface EmailAddRequest {
   email: string;
@@ -24,14 +24,13 @@ export async function POST(req: NextRequest) {
   const token = await getToken({ req });
   const l10n = getL10n();
 
-  if (typeof token?.email === "string") {
+  if (typeof token?.subscriber?.fxa_uid === "string") {
     try {
       const body: EmailAddRequest = await req.json();
-      const subscriber = (await getSubscriberByEmail(
-        token.email
-      )) as Subscriber & {
-        email_addresses: Array<{ id: number; email: string }>;
-      };
+      const subscriber = await getSubscriberByFxaUid(token.subscriber?.fxa_uid);
+      if (!subscriber) {
+        throw new Error("No subscriber found for current session.");
+      }
       const emailCount = 1 + (subscriber.email_addresses?.length ?? 0); // primary + verified + unverified emails
       const validatedEmail = validateEmailAddress(body.email);
 
@@ -41,17 +40,17 @@ export async function POST(req: NextRequest) {
             success: false,
             message: l10n.getString("user-add-invalid-email"),
           },
-          { status: 400 }
+          { status: 400 },
         );
       }
 
-      if (emailCount >= Number.parseInt(AppConstants.MAX_NUM_ADDRESSES, 10)) {
+      if (emailCount >= CONST_MAX_NUM_ADDRESSES) {
         return NextResponse.json(
           {
             success: false,
             message: l10n.getString("user-add-too-many-emails"),
           },
-          { status: 400 }
+          { status: 400 },
         );
       }
 
@@ -63,7 +62,7 @@ export async function POST(req: NextRequest) {
             success: false,
             message: l10n.getString("user-add-duplicate-email"),
           },
-          { status: 400 }
+          { status: 400 },
         );
       }
 
@@ -74,14 +73,14 @@ export async function POST(req: NextRequest) {
               success: false,
               message: l10n.getString("user-add-duplicate-email"),
             },
-            { status: 400 }
+            { status: 400 },
           );
         }
       }
 
       const unverifiedSubscriber = await addSubscriberUnverifiedEmailHash(
         subscriber,
-        validatedEmail.email
+        validatedEmail.email,
       );
 
       await initEmail();
@@ -102,7 +101,7 @@ export async function POST(req: NextRequest) {
             success: false,
             message: "Verification email recently sent, try again later",
           },
-          { status: 429 }
+          { status: 429 },
         );
       }
       return NextResponse.json({ success: false }, { status: 500 });

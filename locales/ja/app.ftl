@@ -1,10 +1,15 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
 # Strings for the main app
 
 
 ## The following messages are brand and should be kept entirely in English
 ## unless otherwise indicated.
 
--product-name = Firefox Monitor
+-product-name = Mozilla Monitor
 -product-name-nowrap = <span class="nowrap">{ -product-name }</span>
 -product-short-name = Monitor
 -brand-name = Firefox
@@ -15,14 +20,9 @@
 -brand-lockwise = Firefox Lockwise
 -brand-send = Firefox Send
 -brand-fpn = Firefox Private Network
--brand-mozilla-vpn = Mozilla VPN
--brand-relay = Firefox Relay
 
 ##
 
-# “account” can be localized, “Firefox” must be treated as a brand,
-# and kept in English.
--brand-fx-account = Firefox アカウント
 GitHub-link-title = GitHub
 error-scan-page-token = 短期間に多くのメールアドレスを検索しようとしています。セキュリティ上の理由から、一時的に新たな検索をブロックしました。後ほどまた試してください。
 error-could-not-add-email = メールアドレスをデータベースに追加できませんでした。
@@ -40,7 +40,12 @@ user-add-invalid-email = メールアドレスが正しくありません
 user-add-too-many-emails = 監視しているメールアドレスの数が制限に達しています。
 user-add-email-verify-subject = { -product-name } の登録を確認してください。
 user-add-duplicate-email = このメールは既に { -product-name } に追加されています。
+# Variables:
+#   $preferencesLink (String) - Link to preferences
+#   $userEmail (String) - User email address
 user-add-duplicate-email-part-2 = { $preferencesLink } にアクセスして、{ $userEmail } のステータスを確認してください。
+user-add-verification-email-just-sent = メールをすぐに再送信することはできません。後でもう一度試してください。
+user-add-unknown-error = 別のメールアドレスを追加する際に問題が発生しました。後でもう一度試してください。
 error-headline = エラー
 user-verify-token-error = 検証トークンが必要です。
 user-verify-email-report-subject = あなたの { -product-name } レポート
@@ -53,11 +58,11 @@ scan-placeholder = メールアドレスを入力してください
 scan-submit = あなたのメールアドレスを検索
 scan-error = メールアドレスを正しく入力してください。
 download-firefox-banner-button = { -brand-name } をダウンロード
-# Appears after Firefox Monitor has sent a verification email to a new user. 
+# Appears after Firefox Monitor has sent a verification email to a new user.
 signup-modal-sent = 送信しました。
 sign-up = アカウント登録
 form-signup-error = 有効なメールアドレスを登録してください
-# breach-date = the calendar date a particular data theft occurred. 
+# breach-date = the calendar date a particular data theft occurred.
 breach-date = 侵害日:
 # compromised accounts = the total number of user accounts exposed in data breach
 compromised-accounts = 漏洩したアカウント数:
@@ -67,6 +72,8 @@ unsub-headline = { -product-name-nowrap } の登録を解除
 unsub-blurb = 登録を解除すると、あなたのメールアドレスを { -product-name-nowrap } のリストから削除し、新たなデータ侵害があっても通知を受け取れなくなります。
 unsub-button = 登録解除
 # Breach data provided by Have I Been Pwned.
+# Variables:
+#   $hibp-link (String) - Link to Have I Been Pwned
 hibp-attribution = 侵害データの提供 { $hibp-link }
 share-twitter = 多くの人が約 100 個のオンラインアカウントを持っています。あなたのアカウントはデータ侵害にさらされていませんか？確認しましょう。
 share-facebook-headline = データ侵害に巻き込まれていないか確認しましょう。
@@ -109,8 +116,6 @@ about-firefox-monitor = { -product-name } について
 preferences = 設定
 # Link title
 home = ホーム
-# Link title
-breaches = データ侵害
 # Link title
 security-tips = セキュリティの秘訣
 fxa-account = { -brand-fxa }
@@ -182,7 +187,9 @@ feat-security-tips = セキュリティの秘訣であなたのアカウント�
 feat-sensitive = 機密情報の侵害について詳しい検索をしましょう
 feat-enroll-multiple = 複数のメールアドレスを登録して侵害を監視しましょう
 # This string is shown beneath each of the user’s email addresses to indicate
-# how many known breaches that email address was found in. 
+# how many known breaches that email address was found in.
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 appears-in-x-breaches =
     { $breachCount ->
        *[other] 既知のデータ侵害は { $breachCount } 件です。
@@ -192,6 +199,9 @@ find-out-what-hackers-know = あなたのことがハッカーに知られてい
 get-email-alerts = 安全のため、既知の侵害にあなたの情報が含まれていた場合にメールアラートを受け取るようにしましょう。
 search-for-your-email = 2007 年までさかのぼって、メールアドレスがデータ侵害を受けているか検索します。
 back-to-top = トップに戻る
+comm-opt-0 = 以下のメールアドレスがデータ侵害に該当する場合は、メールで知らせてください。
+# Variables:
+#   $primaryEmail (String) - User primary email address
 comm-opt-1 = すべての通知を { $primaryEmail } に送る。
 stop-monitoring-this = このメールの監視を停止する。
 resend-verification = 認証メールを再送する
@@ -200,7 +210,7 @@ send-verification = 認証リンクを送信する
 # This string is a header on the user preferences page and
 # appears above a check-box list of user options which allow
 # the user to choose whether or not they want to receive breach
-# alerts for all of their monitored email addresses to a single 
+# alerts for all of their monitored email addresses to a single
 # email address.
 breach-summary = データ侵害概要
 show-breaches-for-this-email = このメールアドレスのすべてのデータ侵害を表示する。
@@ -211,8 +221,15 @@ remove-fxm-blurb = { -product-name } の警告をオフにします。{ -brand-f
 manage-email-addresses = メールアドレスの管理
 # Link title
 latest-breach-link = この侵害を受けているか確認する
+
+## Variables:
+##   $userName (String) - Username
+
 welcome-back = おかえりなさい、{ $userName } さん！
 welcome-user = ようこそ、{ $userName } さん！
+
+##
+
 breach-alert-subject = { -product-name } が、あなたのメールアドレスの新しいデータ侵害を発見しました。
 your-info-was-discovered-headline = あなたの情報が新しいデータ侵害に含まれています。
 your-info-was-discovered-blurb = あなたのメールアドレスがデータ侵害に含まれていた場合に { -product-name } アラートが届くよう登録されています。この侵害についてわかっていることは次のとおりです。
@@ -221,17 +238,24 @@ ba-next-step-1 = パスワードを強力で一意のパスワードに変更す
 ba-next-step-blurb-1 = 強力なパスワードは、大文字と小文字、記号などの特殊文字、数字を組み合わせたものです。住所や誕生日、家族の名前などの個人情報を含めてはいけません。
 ba-next-step-2 = 漏洩したパスワードの利用を完全に停止してください。
 ba-next-step-blurb-2 = サイバー犯罪者がダークウェブであなたのパスワードを見つけ、あなたの他のアカウントにログインするために利用する可能性があります。あなたのアカウントを保護する最善の方法は、同じパスワードを使いまわさず、アカウントごとに固有のパスワードを使用することです。
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 new-breaches-found =
     { $breachCount ->
        *[other] 新たな侵害が { $breachCount } 件みつかりました
     }
 sign-up-headline-1 = { -brand-fxa } で継続して警告を受け取りましょう。
 account-not-required = { -brand-name } ブラウザーは { -brand-fxa }には必要ありません。{ -brand-Mozilla } サービスについての情報を受け取るでしょう。
+
+## Variables:
+##   $breachName (String) - Number of the breach
+
 was-your-info-exposed = { $breachName } のデータ侵害にさらされていますか？
 fb-not-comp = このメールアドレスは、{ $breachName } のデータ侵害に含まれていません。
+
+##
+
 no-results-blurb = データベース内に侵害は見つかりませんでした。
-all-breaches-headline = { -product-name } 内のすべてのデータ侵害
-search-breaches = データ侵害を検索
 # "Appears in-page as: Showing: All Breaches"
 currently-showing = 表示中:
 
@@ -268,6 +292,8 @@ known-data-breaches-exposed =
     }
 # Button
 see-additional-breaches = 追加のデータ侵害を見る
+# Variables:
+#   $breachCount (Integer) - Number of breaches
 scan-results-known-breaches =
     { $breachCount ->
        *[other] このメールアドレスは { $breachCount } 個の既知のデータ侵害があります。
@@ -275,6 +301,8 @@ scan-results-known-breaches =
 # This string is shown at the top of the scan results page and is followed
 # by the email address that the user searched.
 # In page, it reads "Results for: searchedEmail@monitor.com"
+# Variables:
+#   $userEmail (String) - User email address
 results-for = { $userEmail } についての結果
 other-monitored-emails = その他の監視対象メールアドレス
 email-verification-required = メールアドレスの認証が必要です
@@ -301,10 +329,12 @@ breach-overview-title = 概要
 # $breachTitle is the name of the breached company or website.
 # $breachDate and $addedDate are calendar dates.
 breach-overview-new = { $breachDate } に、{ $breachTitle } は侵害にさらされました。侵害が発見され、確認されたため、{ $addedDate } にデータベースに追加されました。
-# Title appearing on the Preferences dashboard. 
+# Title appearing on the Preferences dashboard.
 monitor-preferences = { -product-short-name } の設定
-# When a user is signed in, this appears in the drop down menu 
-# and is followed by the user's primary Firefox Account email. 
+# When a user is signed in, this appears in the drop down menu
+# and is followed by the user's primary Firefox Account email.
+# Variables:
+#   $userEmail (String) - User email address
 signed-in-as = ログイン中: { $userEmail }
 # Appears on the All Breaches page and is followed by a list of filter options
 # that a user can filter the visible breaches by.
@@ -332,15 +362,17 @@ sign-in-nested = ログイン
 # form to add an additional email to Firefox Monitor. { $preferencesLink } is a link
 # to the Preferences page. The code and text for the link is generated elsewhere
 # using the { preferences } string.
+# Variables:
+#   $preferencesLink (String) - Link to preferences
 manage-all-emails = { $preferencesLink } ですべてのメールアドレスを管理します。
 # This string is a header on the user preferences page and
 # appears above a check-box list of user options which allow
 # the user to choose whether or not they want to receive breach
-# alerts for all of their monitored email addresses to a single 
+# alerts for all of their monitored email addresses to a single
 # email address.
 breach-alert-notifications = 侵害についての通知設定
 # This string is a label for the calendar date a breach is added to the database
-# and is followed by that date. 
+# and is followed by that date.
 breach-added-label = 侵害が追加された日:
 how-hackers-work-desc = サイバー犯罪者からあなたのパスワードを守りましょう。サイバー犯罪者はパスワードに最も関心があります。
 what-to-do-after-breach-desc = アカウントをロックして、あなたの情報が悪意のある人の手に渡らないようにしましょう。
@@ -359,7 +391,11 @@ see-additional-recs = 追加の推奨事項を見る
 ## This string contains nested markup that becomes a link later in the code.
 ## Please do not modify or remove "<a>" and "</a>".
 
+# Variables:
+#   $affectedEmail (String) - User email address
 resolve-top-notification = { $affectedEmail } は、この侵害を受けています。<a>何をするべきかはこちらをご覧ください</a>
+# Variables:
+#   $numAffectedEmails (Integer) - Number of affected email address
 resolve-top-notification-plural =
     { $numAffectedEmails ->
        *[other] { $numAffectedEmails } 個のメールアドレスが、この侵害を受けています。<a>何をするべきかはこちらをご覧ください</a>
@@ -374,6 +410,8 @@ undo-button = 元に戻す
 go-to-dashboard-link = ダッシュボードに移動
 # This string appears above a breach resolution progress bar and indicates
 # the percentage of breaches a user has resolved. For instance, "27% complete".
+# Variables:
+#   $percentComplete (String) - Completion percentage
 progress-percent-complete = { $percentComplete }% 完了
 
 ## These strings contain nested markup that is later used to style the text inside of it.
@@ -389,16 +427,29 @@ promo-ecosystem-cta = すべての製品を見る
 
 ## VPN promotional banner.  HTML tags should not be translated, e.g. `<em>`
 
-# user's IP location is determined dynamically by 3rd-party, eg: "Your location: Los Angeles, CA".  The 3rd-party service provides its own localization.
+# Variables:
+#   $ip-location (String) - User's IP location is determined dynamically by 3rd-party,
+#                           eg: "Your location: Los Angeles, CA".  The 3rd-party service
+#                           provides its own localization.
 vpn-banner-location = あなたの現在地: { $ip-location }
 
 ## Relay and VPN educational/ad units
 
+ad-unit-relay-cta = { -brand-relay } について知る
+ad-unit-vpn-cta = { -brand-mozilla-vpn } について知る
+# ad 5 heading
+ad-unit-5-on-the-go = { -brand-relay } を使ってみましょう
+ad-unit-5-instantly-make = どこにいても、すぐにカスタムメールマスクを生成できます。
 
 # Monitor V2
 
 
 ## The following messages are brands and should be kept entirely in English
+
+-brand-mozilla-vpn = Mozilla VPN
+-brand-relay = Firefox Relay
+
+##
 
 
 ## Search Engine Optimization
@@ -408,6 +459,27 @@ vpn-banner-location = あなたの現在地: { $ip-location }
 
 sign-in = ログイン
 
+## Site navigation
+
+
+## User menu
+
+
 ## Footer
 
-terms-and-privacy = 利用規約と個人情報保護方針
+
+## Error page
+
+
+## Breach overview page
+
+search-breaches = データ侵害を検索
+
+## Public breach detail page
+
+
+## Floating banner
+
+
+## Firefox Monitor -> Mozilla Monitor rebrand banner
+

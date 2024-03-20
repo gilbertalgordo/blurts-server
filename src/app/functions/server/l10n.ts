@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import "server-only";
 import { acceptedLanguages, negotiateLanguages } from "@fluent/langneg";
 import { headers } from "next/headers";
 import { ExtendedReactLocalization, GetFragment } from "../../hooks/l10n";
@@ -20,16 +21,12 @@ export type LocaleData = {
   bundleSources: string[];
 };
 
-export function getLocale(localeData: LocaleData[] = getL10nBundles()): string {
-  return localeData[0]?.locale ?? "en";
-}
-
 // `require` isn't usually valid JS, so skip type checking for that:
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const translationsContext = (require as any).context(
   "../../../../locales",
   true,
-  /\.ftl$/
+  /\.ftl$/,
 );
 const loadedSources: Record<string, string> = {};
 function loadSource(filename: string): string {
@@ -68,13 +65,13 @@ export function getL10nBundles(): LocaleData[] {
         const pendingTranslationsContext = (require as any).context(
           "../../../../locales-pending",
           true,
-          /\.ftl$/
+          /\.ftl$/,
         );
         pendingTranslationsContext
           .keys()
           .forEach((pendingTranslationFilename: string) => {
             bundleSources.en.push(
-              pendingTranslationsContext(pendingTranslationFilename)
+              pendingTranslationsContext(pendingTranslationFilename),
             );
           });
       }
@@ -82,11 +79,15 @@ export function getL10nBundles(): LocaleData[] {
   }
 
   const languages = acceptLangHeader ? acceptedLanguages(acceptLangHeader) : [];
-  const currentLocales = negotiateLanguages(
-    languages,
-    Object.keys(bundleSources),
-    { defaultLocale: "en" }
-  );
+  const supportedLocales = process.env.SUPPORTED_LOCALES?.split(",");
+  const availableLocales = Object.keys(bundleSources);
+  const filteredLocales =
+    process.env.APP_ENV === "heroku"
+      ? availableLocales
+      : availableLocales.filter((locale) => supportedLocales?.includes(locale));
+  const currentLocales = negotiateLanguages(languages, filteredLocales, {
+    defaultLocale: "en",
+  });
 
   const relevantBundleSources = currentLocales.map((relevantLocale) => ({
     locale: relevantLocale,
@@ -127,7 +128,7 @@ function getBundle(localeData: LocaleData): FluentBundle {
 }
 
 export function getL10n(
-  localeData: LocaleData[] = getL10nBundles()
+  localeData: LocaleData[] = getL10nBundles(),
 ): ExtendedReactLocalization {
   const bundles: FluentBundle[] = localeData.map((data) => getBundle(data));
 
@@ -135,7 +136,7 @@ export function getL10n(
   // bundles. You can store it in your app's state.
   const l10n = new ReactLocalization(
     bundles,
-    process.env.STORYBOOK === "true" ? undefined : parseMarkup
+    process.env.STORYBOOK === "true" ? undefined : parseMarkup,
   );
 
   const getFragment: GetFragment = (id, args, fallback) =>

@@ -49,7 +49,9 @@
         &.exposureImageWrapper {
           flex: 0.2 0 $width-first-column-filter-bar;
         }
+      }
 
+      @media screen and (min-width: $screen-xl) {
         &.hideOnMobile {
           display: flex;
         }
@@ -65,21 +67,25 @@
   }
 }
 
-.filterPopOver {
+.filterDialog {
   background: $color-white;
   border-radius: $border-radius-sm;
   box-shadow: $box-shadow-md;
   width: $content-xs;
-  padding: $spacing-md;
   overflow-y: scroll;
 
   @media screen and (min-width: $screen-sm) {
     width: auto;
-    padding: $spacing-xl;
     overflow-y: hidden;
   }
 
   .exposuresFilterWrapper {
+    padding: $spacing-md;
+
+    @media screen and (min-width: $screen-sm) {
+      padding: $spacing-xl;
+    }
+
     .dismissButton {
       position: absolute;
       top: 0;
@@ -97,14 +103,11 @@
 
     .filterControls {
       display: flex;
+      justify-content: flex-end;
       flex-direction: row;
-      gap: $spacing-xs;
-      float: right;
+      gap: $spacing-sm;
       padding-top: $spacing-md;
-
-      button {
-        padding: $spacing-sm $spacing-xl;
-      }
+      width: 100%;
     }
 
     .exposuresFilterRadioButtons {
@@ -155,4 +158,8 @@
 
 .visuallyHidden {
   @include visually-hidden;
+}
+
+.companyNameArea {
+  @include company-name-area;
 }

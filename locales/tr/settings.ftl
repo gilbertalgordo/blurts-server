@@ -20,14 +20,26 @@ settings-alert-preferences-option-two = Tüm ihlal uyarılarını birinci e-post
 #   $email (string) - Email address
 settings-email-label-primary = { $email } (birinci)
 settings-email-list-title = İzlenen e-posta adresleri
+# Variables:
+#   $limit (number) - Number of email addresses included in the plan
+settings-email-limit-info =
+    { $limit ->
+        [one] Hesabınız toplam { $limit } e-posta adresini izlemenize olanak veriyor.
+       *[other] Hesabınız toplam { $limit } e-posta adresini izlemenize olanak veriyor.
+    }
 settings-email-verification-callout = E-posta doğrulaması gerekiyor
 settings-resend-email-verification-link = Doğrulama e-postasını yeniden gönder
 settings-add-email-button = E-posta adresi ekle
+# Deprecated
 settings-delete-email-button = E-posta adresini sil
+settings-remove-email-button-label = Kaldır
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = { $emailAddress } adresini izlemeyi durdur
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Bilinen { $breachCount } ihlalde yer alıyor.
@@ -37,13 +49,27 @@ settings-email-number-of-breaches-info =
 ## Cancel Premium subscription
 
 settings-cancel-premium-subscription-title = { -brand-premium } aboneliğini iptal et
-settings-cancel-premium-subscription-link-label = { -brand-fx-account }nızdan iptal edin
 
 ## Deactivate account
 
 settings-deactivate-account-title = Hesabı devre dışı bırak
-settings-deactivate-account-info = { -product-short-name }’ü { -brand-fx-account }nızı silerek devre dışı bırakabilirsiniz.
-settings-fxa-link-label = { -brand-firefox } ayarlarına git
+settings-deactivate-account-info-2 = { -product-short-name }’ü { -brand-mozilla-account }nızı silerek devre dışı bırakabilirsiniz.
+settings-fxa-link-label-3 = { -brand-mozilla-account } ayarlarına gidin
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = { -brand-monitor } hesabını sil
+settings-delete-monitor-free-account-cta-label = Hesabı sil
+settings-delete-monitor-free-account-dialog-title = { -brand-monitor } hesabınız kalıcı olarak silinecektir
+settings-delete-monitor-free-account-dialog-cta-label = Hesabı sil
+settings-delete-monitor-free-account-dialog-cancel-button-label = Vazgeçtim, geri dön
+settings-delete-monitor-plus-account-title = { -brand-monitor } hesabımı sil
+settings-delete-monitor-plus-account-cta-label = Hesabı sil
+settings-delete-monitor-plus-account-dialog-title = { -brand-monitor } hesabınız kalıcı olarak silinecektir
+settings-delete-monitor-plus-account-dialog-cta-label = Hesabı sil
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Vazgeçtim, geri dön
+settings-delete-monitor-account-confirmation-toast-label = { -brand-monitor } hesabınız kalıcı olarak silindi.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Kapat
 
 ## Add email dialog
 

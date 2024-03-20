@@ -32,11 +32,16 @@ settings-email-limit-info =
 settings-email-verification-callout = Vyžadováno ověření e-mailové adresy
 settings-resend-email-verification-link = Znovu poslat ověřovací e-mail
 settings-add-email-button = Přidat e-mailové adresy
+# Deprecated
 settings-delete-email-button = Smazat e-mailovou adresu
+settings-remove-email-button-label = Odebrat
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Ukončit monitorování adresy { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Vyskytuje se v { $breachCount } známém úniku.
@@ -49,13 +54,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = Zrušit předplatné { -brand-premium }
 settings-cancel-premium-subscription-info = Po skončení aktuálního fakturačního období se vaše předplatné vrátí na bezplatný účet. Vaše výsledky kontroly ochrany soukromí budou trvale smazány a budete mít monitorování narušení dat pouze pro 1 e-mailovou adresu.
-settings-cancel-premium-subscription-link-label = Zrušit z vašeho { -brand-fx-account(case: "gen", capitalization: "lower") }
 
 ## Deactivate account
 
 settings-deactivate-account-title = Deaktivovat účet
-settings-deactivate-account-info = Službu { -product-short-name } můžete deaktivovat smazáním svého { -brand-fx-account(case: "gen", capitalization: "lower") }.
-settings-fxa-link-label = Přejít do nastavení { -brand-firefox(case: "gen") }
+settings-deactivate-account-info-2 = { -product-short-name } můžete deaktivovat odstraněním svého { -brand-mozilla-account(case: "gen", capitalization: "lower") }.
+settings-fxa-link-label-3 = Přejít do nastavení { -brand-mozilla-account(case: "gen", capitalization: "lower") }.
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = Smazání účtu { -brand-monitor }
+settings-delete-monitor-free-account-description = Tímto trvale smažete svůj účet u služby { -brand-monitor } a vypnete všechna oznámení.
+settings-delete-monitor-free-account-cta-label = Smazat účet
+settings-delete-monitor-free-account-dialog-title = Váš účet u služby { -brand-monitor } bude trvale smazán
+settings-delete-monitor-free-account-dialog-lead = Všechny informace o vašem účtu { -brand-monitor } budou smazány a my už nebudeme nadále sledovat nové úniky údajů. Tímto nesmažete svůj účet { -brand-mozilla }.
+settings-delete-monitor-free-account-dialog-cta-label = Smazat účet
+settings-delete-monitor-free-account-dialog-cancel-button-label = Rozmyslel(a) jsem si to
+settings-delete-monitor-plus-account-title = Smazat účet { -brand-monitor }
+settings-delete-monitor-plus-account-description = Tímto trvale smažete svůj účet { -brand-monitor } a okamžitě ukončíte své placené předplatné { -brand-monitor-plus }.
+settings-delete-monitor-plus-account-cta-label = Smazat účet
+settings-delete-monitor-plus-account-dialog-title = Váš účet { -brand-monitor } bude trvale smazán
+settings-delete-monitor-plus-account-dialog-lead-p1 = Všechny informace o vašem účtu { -brand-monitor } budou smazány a my už nebudeme nadále monitorovat nové úniky dat a ani úniky dat ze strany zprostředkovatelů dat. Tímto nesmažete svůj účet { -brand-mozilla }.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Vaše placené předplatné dnes skončí a za zbývající část předplatného vám nebude vyplacena poměrná část.
+settings-delete-monitor-plus-account-dialog-cta-label = Smazat účet
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Rozmyslel(a) jsem si to
+settings-delete-monitor-account-confirmation-toast-label = Váš účet { -brand-monitor } je nyní trvale smazán.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Zavřít
 
 ## Add email dialog
 

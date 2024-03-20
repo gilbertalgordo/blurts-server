@@ -26,24 +26,48 @@ settings-email-limit-info = 您的帳號可監控最多 { $limit } 組信箱。
 settings-email-verification-callout = 需要驗證信箱
 settings-resend-email-verification-link = 重寄驗證信
 settings-add-email-button = 新增電子郵件地址
+# Deprecated
 settings-delete-email-button = 刪除電子郵件地址
+settings-remove-email-button-label = 移除
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = 停止監控 { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info = 出現在 { $breachCount } 場已知的外洩事件中。
 
 ## Cancel Premium subscription
 
 settings-cancel-premium-subscription-title = 取消 { -brand-premium } 訂閱
 settings-cancel-premium-subscription-info = 將在目前的帳務週期結束後恢復為免費帳號訂閱。將永久刪除您的隱私保護掃描結果，且僅能監控 1 個信箱的資料外洩事件。
-settings-cancel-premium-subscription-link-label = 從 { -brand-fx-account } 取消
 
 ## Deactivate account
 
 settings-deactivate-account-title = 停用帳號
-settings-deactivate-account-info = 您可以刪除 { -brand-fx-account } 來停用 { -product-short-name }。
-settings-fxa-link-label = 前往 { -brand-firefox } 設定
+settings-deactivate-account-info-2 = 您可以刪除 { -brand-mozilla-account }來停用 { -product-short-name }。
+settings-fxa-link-label-3 = 前往 { -brand-mozilla-account }設定
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = 刪除 { -brand-monitor } 帳號
+settings-delete-monitor-free-account-description = 將會永久刪除您的 { -brand-monitor } 帳號，並關閉所有通知。
+settings-delete-monitor-free-account-cta-label = 刪除帳號
+settings-delete-monitor-free-account-dialog-title = 將永久刪除您的 { -brand-monitor } 帳號
+settings-delete-monitor-free-account-dialog-lead = 將刪除您所有的 { -brand-monitor } 帳號資訊，我們也將不再監控這些帳號相關的資料外洩事件，但這個動作不會刪除您的 { -brand-mozilla } 帳號。
+settings-delete-monitor-free-account-dialog-cta-label = 刪除帳號
+settings-delete-monitor-free-account-dialog-cancel-button-label = 算了，帶我回去
+settings-delete-monitor-plus-account-title = 刪除 { -brand-monitor } 帳號
+settings-delete-monitor-plus-account-description = 將永久刪除您的 { -brand-monitor } 帳號並立即結束 { -brand-monitor-plus } 付費訂閱。
+settings-delete-monitor-plus-account-cta-label = 刪除帳號
+settings-delete-monitor-plus-account-dialog-title = 將永久刪除您的 { -brand-monitor } 帳號
+settings-delete-monitor-plus-account-dialog-lead-p1 = 將刪除您所有的 { -brand-monitor } 帳號資訊，我們也將不再監控這些帳號相關的資料外洩事件或資料交換曝光事件，但這個動作不會刪除您的 { -brand-mozilla } 帳號。
+settings-delete-monitor-plus-account-dialog-lead-p2 = 您的付費訂閱將於今日結束，且不會退回剩餘天數的訂閱費用。
+settings-delete-monitor-plus-account-dialog-cta-label = 刪除帳號
+settings-delete-monitor-plus-account-dialog-cancel-button-label = 算了，帶我回去
+settings-delete-monitor-account-confirmation-toast-label = 已永久刪除您的 { -brand-monitor } 帳號。
+settings-delete-monitor-account-confirmation-toast-dismiss-label = 知道了！
 
 ## Add email dialog
 

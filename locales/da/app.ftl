@@ -1,10 +1,15 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
 # Strings for the main app
 
 
 ## The following messages are brand and should be kept entirely in English
 ## unless otherwise indicated.
 
--product-name = Firefox Monitor
+-product-name = Mozilla Monitor
 -product-name-nowrap = <span class="nowrap">{ -product-name }</span>
 -product-short-name = Monitor
 -brand-name = Firefox
@@ -39,6 +44,9 @@ user-add-duplicate-email = Denne mailadresse er allerede føjet til { -product-n
 #   $preferencesLink (String) - Link to preferences
 #   $userEmail (String) - User email address
 user-add-duplicate-email-part-2 = Besøg { $preferencesLink } for at kontrollere status af { $userEmail }.
+user-add-verification-email-just-sent = En bekræftelsesmail til kan ikke sendes igen så kort tid efter. Prøv igen senere.
+user-add-unknown-error = Der opstod et problem med at tilføje en mailadresse til. Prøv igen senere.
+user-delete-unknown-error = Der opstod et problem med at fjerne en mailadresse. Prøv igen senere.
 error-headline = Fejl
 user-verify-token-error = Der kræves et bekræftelses-token.
 user-verify-email-report-subject = Din { -product-name }-rapport
@@ -711,7 +719,8 @@ ad-unit-6-before-you-complete = Maskér din mailadresse for at beskytte dine opl
 ## The following messages are brands and should be kept entirely in English
 
 -brand-firefox = Firefox
--brand-fx-monitor = Firefox Monitor
+-brand-monitor = Monitor
+-brand-fx-monitor = Mozilla Monitor
 -brand-mozilla = Mozilla
 -brand-premium = Premium
 -brand-monitor-premium = Monitor Premium
@@ -719,12 +728,15 @@ ad-unit-6-before-you-complete = Maskér din mailadresse for at beskytte dine opl
 -brand-github = GitHub
 -brand-mozilla-vpn = Mozilla VPN
 -brand-relay = Firefox Relay
+-brand-mozilla-monitor = Mozilla Monitor
+-brand-monitor-plus = Monitor Plus
 
 ##
 
-# “account” can be localized, “Firefox” must be treated as a brand,
+# “account” can be localized, “Mozilla” must be treated as a brand,
 # and kept in English.
--brand-fx-account = Firefox-konto
+-brand-mozilla-account = Mozilla-konto
+open-in-new-tab-alt = Åbn link i et nyt faneblad
 
 ## Search Engine Optimization
 
@@ -732,38 +744,67 @@ meta-desc-2 = Brug { -brand-fx-monitor } til at finde ud af, om du er blevet uds
 
 ## Header
 
+# Deprecated
 brand-fx-monitor = { -brand-fx-monitor }
 sign-in = Log ind
+brand-mozilla-monitor = { -brand-fx-monitor }
 
 ## Site navigation
 
 site-nav-breaches-link = Løste datalæk
 site-nav-settings-link = Indstillinger
 site-nav-help-link = Hjælp og support
-# This call-out is above 2 image links for Firefox Relay and Mozilla VPN 
+# This call-out is above 2 image links for Firefox Relay and Mozilla VPN
 site-nav-ad-callout = Prøv vores andre sikkerhedsværktøjer:
 brand-relay = { -brand-relay }
 brand-mozilla-vpn = { -brand-mozilla-vpn }
+mobile-menu-label = Hovedmenu
+main-nav-button-collapse-label = Luk menu
+main-nav-button-collapse-tooltip = Luk menu
+main-nav-button-expand-label = Åbn menu
+main-nav-button-expand-tooltip = Åbn menu
+main-nav-label = Navigation
+main-nav-link-home-label = Hjem
+main-nav-link-dashboard-label = Oversigt
+main-nav-link-settings-label = Indstillinger
+main-nav-link-faq-label = FAQ
+main-nav-link-faq-tooltip = Ofte stillede spørgsmål
 
 ## User menu
 
+# Obsolete
 menu-button-title = Brugermenu
+# Obsolete
 menu-button-alt = Åbn brugermenuen
+# Obsolete
 menu-list-accessible-label = Åbn kontomenuen
-menu-item-fxa = Håndter din { -brand-fx-account }
-menu-item-fxa-alt = Åbn siden { -brand-fx-account }
+# Obsolete
+menu-item-fxa-2 = Håndter din { -brand-mozilla-account }
+# Obsolete
 menu-item-settings = Indstillinger
-menu-item-settings-alt = Åbn siden Indstillinger
+# Obsolete
 menu-item-help = Hjælp og support
-menu-item-help-alt = Åbn hjælp- og supportsiden
+# Obsolete
 menu-item-logout = Log ud
+user-menu-trigger-label = Åbn brugermenuen
+user-menu-trigger-tooltip = Profil
+user-menu-manage-fxa-label = Håndter din { -brand-mozilla-account }
+user-menu-settings-label = Indstillinger
+user-menu-settings-tooltip = Opsæt { -brand-mozilla-monitor }
+user-menu-help-label = Hjælp og support
+user-menu-help-tooltip = Få hjælp til { -brand-mozilla-monitor }
+user-menu-signout-label = Log ud
+user-menu-signout-tooltip = Log ud af { -brand-mozilla-monitor }
 
 ## Footer
 
 mozilla = { -brand-Mozilla }
-terms-and-privacy = Vilkår og beskyttelse af personlige oplysninger
+terms-of-service = Tjenestevilkår
+privacy-notice = Privatlivserklæring
 github = { -brand-github }
 footer-nav-all-breaches = Alle datalæk
+footer-external-link-faq-label = Ofte stillede spørgsmål
+footer-external-link-faq-tooltip = Ofte stillede spørgsmål
 
 ## Error page
 
@@ -796,3 +837,10 @@ breach-detail-cta-signup = Undersøg for datalæk
 floating-banner-text = Boost din sikkerhed på nettet med nyheder, tips og opdateringer fra { -brand-Mozilla }.
 floating-banner-link-label = Tilmeld dig
 floating-banner-dismiss-button-label = Nej tak
+
+## Firefox Monitor -> Mozilla Monitor rebrand banner
+
+banner-monitor-rebrand-text = <b>{ -brand-mozilla-monitor }</b>: Nyt navn, nyt udseende, og endnu flere måder at <b>beskytte dit privatliv</b>.
+banner-monitor-rebrand-dismiss-button-label = OK
+banner-monitor-rebrand-dismiss-button-tooltip = Afvis
+loading-accessibility = Indlæser

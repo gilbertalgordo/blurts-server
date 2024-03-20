@@ -2,6 +2,15 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+breach-meta-title = { -brand-fx-monitor } - Oversyn
+breach-all-meta-title = { -brand-fx-monitor } - Alle datalekkasjar
+breach-all-meta-social-title = Alle datalekkasjar oppdaga av { -brand-fx-monitor }
+# Variables:
+#   $company (String) - Name of the company that was breached, e.g. "PHP Freaks"
+breach-detail-meta-title = { -brand-fx-monitor } - datalekkasjar hos { $company }
+# Variables:
+#   $company (String) - Name of the company that was breached, e.g. "PHP Freaks"
+breach-detail-meta-social-title = Vart du påverka av datalekkasjen hos { $company } ?
 
 ## Breaches header
 
@@ -77,6 +86,7 @@ breach-checklist-link-mozilla-vpn = { -brand-mozilla-vpn }
 
 ## Prompts the user for changes when there is a breach detected of security questions
 
+breach-checklist-sq-header-text = Oppdater sikkerheitsspørsmåla dine.
 
 ## Prompts the user for changes when there is a breach detected of historical password
 

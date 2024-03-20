@@ -1,12 +1,10 @@
 # Firefox Monitor Server
 
-[![Coverage Status](https://coveralls.io/repos/github/mozilla/blurts-server/badge.svg?branch=main)](https://coveralls.io/github/mozilla/blurts-server?branch=main)
-
 ## Summary
 
 Firefox Monitor notifies users when their credentials have been compromised in a data breach.
 
-This code is for the monitor.firefox.com service & website.
+This code is for the monitor.mozilla.org service & website.
 
 Breach data is powered by [haveibeenpwned.com](https://haveibeenpwned.com/).
 
@@ -82,6 +80,12 @@ We track commits that are largely style/formatting via `.git-blame-ignore-revs`.
    pip3 install -r .github/requirements.txt
    ```
 
+5. Generate required Glean files (needs re-ran anytime Glean `.yaml` files are updated):
+
+   ```sh
+   npm run build-glean
+   ```
+
 ### Run
 
 1. To run the server similar to production using a build phase, which includes minified and bundled assets:
@@ -92,7 +96,7 @@ We track commits that are largely style/formatting via `.git-blame-ignore-revs`.
 
    **_OR_**
 
-   Run in "dev mode", which loads unbundled client modules and uncompressed assets directly, and uses Nodemon to auto-restart the Express process when any server files change:
+   Run in "dev mode" with:
 
    ```sh
    npm run dev
@@ -100,28 +104,35 @@ We track commits that are largely style/formatting via `.git-blame-ignore-revs`.
 
 2. You may receive the error `Required environment variable was not set`. If this is the case, get the required env var(s) from another team member or ask in #fx-monitor-engineering. Otherwise, if the server started successfully, navigate to [localhost:6060](http://localhost:6060/)
 
-### Cloud Functions
+### PubSub
 
-User breach notifications from HIBP are handled by a [GCP Cloud Function](https://cloud.google.com/functions). This can be emulated locally:
+Monitor uses GCP PubSub for processing incoming breach data, this can be tested locally using an emulator: https://cloud.google.com/pubsub/docs/emulator
+
+#### Run the GCP PubSub emulator:
 
 ```sh
-npm run functions
+gcloud beta emulators pubsub start --project=your-project-name
 ```
 
-This function serves the `/api/v1/hibp/notify` route, which is responsible for:
-
-1. receiving HTTP POST payloads with a bearer token from HIBP
-2. emailing any affected users
-
-This can be tested using curl:
+### In a different shell, set the environment to point at the emulator and run Monitor in dev mode:
 
 ```sh
-curl \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer unsafe-default-token-for-dev' \
-  -X POST \
-  -d '{"breachName": "Gravatar", "hashPrefix": "...", "hashSuffixes": ["..."]}' \
-  localhost:8080/api/v1/hibp/notify
+$(gcloud beta emulators pubsub env-init)
+npm run dev
+```
+
+### Incoming WebHook requests from HIBP will be of the form:
+
+```sh
+curl -d '{ "breachName": "000webhost", "hashPrefix": "test", "hashSuffixes": ["test"] }' \
+  -H "Authorization: Bearer unsafe-default-token-for-dev" \
+  http://localhost:6060/api/v1/hibp/notify
+```
+
+### This pubsub queue will be consumed by this cron job, which is responsible for looking up and emailing impacted users:
+
+```sh
+node src/scripts/emailBreachAlerts.js
 ```
 
 ### Database
@@ -152,9 +163,9 @@ To create the database tables ...
 
 Monitor generates multiple emails that get sent to subscribers. To preview or test-send these emails see documentation [here](docs/monitor-emails.md).
 
-### Firefox Accounts
+### Mozilla accounts ("FxA", formerly known as Firefox accounts)
 
-Subscribe with a Firefox Account is controlled via the `FXA_ENABLED`
+Subscribe with a Mozilla account is controlled via the `FXA_ENABLED`
 environment variable. (See `.env-dist`)
 
 The repo comes with a development FxA oauth app pre-configured in `.env`, which
@@ -169,7 +180,7 @@ At the beginning of a test suite run, the `test-blurts` database will be populat
 
 At the end of a test suite run in CircleCI, coverage info will be sent to [Coveralls](https://coveralls.io/) to assess coverage changes and provide a neat badge. To upload coverage locally, you need a root `.coveralls.yml` which contains a token – get this from another member of the Monitor team.
 
-End-to-End tests use Playwright and can be run via `npm run e2e`.
+End-to-End tests use Playwright and can be run via `npm run e2e`. [E2E-How-To](https://github.com/mozilla/blurts-server/src/e2e) for more info.
 
 #### Test Firefox Integration
 

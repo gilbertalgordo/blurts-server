@@ -25,6 +25,7 @@ career-levels = Επίπεδα καριέρας
 cellular-network-names = Ονόματα δικτύων κινητής τηλεφωνίας
 charitable-donations = Φιλανθρωπικές δωρεές
 chat-logs = Αρχεία συνομιλιών
+clothing-sizes = Μεγέθη ρούχων
 credit-card-cvv = CVV πιστωτικής κάρτας
 credit-cards = Πιστωτικές κάρτες
 credit-status-information = Πληροφορίες πιστωτικής κατάστασης
@@ -80,6 +81,7 @@ living-costs = Έξοδα διαβίωσης
 # This string refers to financial loans.
 loan-information = Πληροφορίες δανείων
 login-histories = Ιστορικά σύνδεσης
+loyalty-program-details = Λεπτομέρειες προγράμματος επιβράβευσης
 mac-addresses = Διευθύνσεις MAC
 marital-statuses = Οικογενειακές καταστάσεις
 # Mnemonic phrases are a group of words used to access the content of cryptocurrency wallets.
@@ -140,6 +142,7 @@ spouses-names = Ονόματα συζύγων
 support-tickets = Αιτήσεις υποστήριξης
 survey-results = Αποτελέσματα έρευνας
 taxation-records = Φορολογικά αρχεία
+telecommunications-carrier = Πάροχοι τηλεπικοινωνιών
 time-zones = Ζώνες ώρας
 travel-habits = Ταξιδιωτικές συνήθειες
 user-statuses = Καταστάσεις χρήστη

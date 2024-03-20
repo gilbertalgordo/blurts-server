@@ -3,7 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "../../../../../functions/server/getServerSession";
+import { logger } from "../../../../../functions/server/logging";
 import {
   enableFeatureFlagByName,
   getFeatureFlagByName,
@@ -12,14 +13,14 @@ import {
   updateOwner,
   updateWaitList,
 } from "../../../../../../db/tables/featureFlags";
-import { isAdmin, authOptions } from "../../../../utils/auth";
+import { isAdmin } from "../../../../utils/auth";
 import appConstants from "../../../../../../appConstants";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { flagId: string } }
+  { params }: { params: { flagId: string } },
 ) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   if (isAdmin(session?.user?.email || "")) {
     // Signed in
     const flagName = params.flagId;
@@ -27,7 +28,7 @@ export async function GET(
       const flag = await getFeatureFlagByName(flagName);
       return NextResponse.json(flag);
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       return NextResponse.json({ success: false }, { status: 500 });
     }
   } else {
@@ -37,7 +38,7 @@ export async function GET(
 }
 
 export async function PUT(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   if (isAdmin(session?.user?.email || "")) {
     // Signed in
     try {
@@ -65,7 +66,7 @@ export async function PUT(req: NextRequest) {
 
       return NextResponse.json({ success: true }, { status: 200 });
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       return NextResponse.json({ success: false }, { status: 500 });
     }
   } else {

@@ -30,11 +30,16 @@ settings-email-limit-info =
 settings-email-verification-callout = Verificação de email é necessária
 settings-resend-email-verification-link = Enviar email de verificação novamente
 settings-add-email-button = Adicionar endereço de email
+# Deprecated
 settings-delete-email-button = Excluir endereço de email
+settings-remove-email-button-label = Remover
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Parar de monitorar { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] Aparece em { $breachCount } vazamento conhecido.
@@ -45,13 +50,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = Cancelar assinatura do { -brand-premium }
 settings-cancel-premium-subscription-info = Sua assinatura será revertida para uma conta gratuita após o término do ciclo de cobrança atual. Os resultados de varredura de proteção de privacidade serão excluídos permanentemente e você só terá monitoramento de vazamento de dados de 1 endereço de email.
-settings-cancel-premium-subscription-link-label = Cancelar da sua { -brand-fx-account }
 
 ## Deactivate account
 
 settings-deactivate-account-title = Desativar conta
-settings-deactivate-account-info = Você pode desativar o { -product-short-name } excluindo sua { -brand-fx-account }.
-settings-fxa-link-label = Ir para as configurações do { -brand-firefox }
+settings-deactivate-account-info-2 = Você pode desativar o { -product-short-name } excluindo sua { -brand-mozilla-account }.
+settings-fxa-link-label-3 = Ir para as configurações da { -brand-mozilla-account }
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = Excluir conta do { -brand-monitor }
+settings-delete-monitor-free-account-description = Sua conta do { -brand-monitor } será excluída permanentemente e todas as notificações serão desativadas.
+settings-delete-monitor-free-account-cta-label = Excluir conta
+settings-delete-monitor-free-account-dialog-title = Sua conta do { -brand-monitor } será excluída permanentemente
+settings-delete-monitor-free-account-dialog-lead = Todas as informações da sua conta do { -brand-monitor } serão excluídas e não iremos mais monitorar novos vazamentos de dados. Isso não exclui sua conta { -brand-mozilla }.
+settings-delete-monitor-free-account-dialog-cta-label = Excluir conta
+settings-delete-monitor-free-account-dialog-cancel-button-label = Mudei de ideia, voltar
+settings-delete-monitor-plus-account-title = Excluir conta do { -brand-monitor }
+settings-delete-monitor-plus-account-description = Sua conta do { -brand-monitor } será excluída permanentemente e sua assinatura paga do { -brand-monitor-plus } será encerrada imediatamente.
+settings-delete-monitor-plus-account-cta-label = Excluir conta
+settings-delete-monitor-plus-account-dialog-title = Sua conta do { -brand-monitor } será excluída permanentemente
+settings-delete-monitor-plus-account-dialog-lead-p1 = Todas as informações da sua conta do { -brand-monitor } serão excluídas e não iremos mais monitorar novos vazamentos de dados ou o aparecimento de suas informações em vendedores de dados. Isso não exclui sua conta { -brand-mozilla }.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Sua assinatura paga será encerrada hoje e não haverá reembolso proporcional ao restante da assinatura.
+settings-delete-monitor-plus-account-dialog-cta-label = Excluir conta
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Mudei de ideia, voltar
+settings-delete-monitor-account-confirmation-toast-label = Sua conta do { -brand-monitor } foi definitivamente excluída.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Descartar
 
 ## Add email dialog
 

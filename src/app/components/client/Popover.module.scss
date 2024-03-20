@@ -1,12 +1,16 @@
 @import "../../tokens";
 
+.underlay {
+  position: fixed;
+  inset: 0;
+}
+
 .popover {
   background: $color-white;
   box-shadow: none;
   border-radius: $border-radius-sm;
-  overflow: hidden;
 
-  &.isVisible {
+  &.isOpen {
     box-shadow: $box-shadow-sm;
   }
 }

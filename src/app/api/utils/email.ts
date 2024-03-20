@@ -3,22 +3,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import { ReactLocalization } from "@fluent/react";
+import { SubscriberRow } from "knex/types/tables";
 import { resetUnverifiedEmailAddress } from "../../../db/tables/emailAddresses.js";
 import { sendEmail, getVerificationUrl } from "../../../utils/email";
 import { getStringLookup } from "../../../utils/fluent.js";
-import { getTemplate } from "../../../views/emails/email2022.js";
-import { verifyPartial } from "../../../views/emails/emailVerify.js";
-import { Subscriber } from "../../(nextjs_migration)/(authenticated)/user/breaches/breaches";
+import { getTemplate } from "../../../emails/email2022.js";
+import { verifyPartial } from "../../../emails/emailVerify.js";
 
 export async function sendVerificationEmail(
-  user: Subscriber,
+  user: SubscriberRow,
   emailId: number,
-  l10n: ReactLocalization
+  l10n: ReactLocalization,
 ) {
   const getMessage = getStringLookup(l10n);
   const unverifiedEmailAddressRecord = await resetUnverifiedEmailAddress(
     emailId,
-    l10n
+    user,
+    l10n,
   );
   const recipientEmail = unverifiedEmailAddressRecord.email;
   const data = {
@@ -32,6 +33,6 @@ export async function sendVerificationEmail(
   await sendEmail(
     recipientEmail,
     getMessage("email-subject-verify"),
-    getTemplate(data, verifyPartial, l10n)
+    getTemplate(data, verifyPartial, l10n),
   );
 }

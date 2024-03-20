@@ -4,8 +4,7 @@
 
 import { getL10n } from "./l10n";
 import AppConstants from "../../../appConstants.js";
-import { Breach } from "../../(nextjs_migration)/(authenticated)/user/breaches/breaches";
-import { BreachDataTypes } from "../universal/breach";
+import { Breach, BreachDataTypes } from "../universal/breach";
 
 /**
  * TODO: Map from google doc: https://docs.google.com/document/d/1KoItFsTYVIBInIG2YmA7wSxkKS4vti_X0A0td_yaHVM/edit#
@@ -89,9 +88,11 @@ const breachResolutionDataTypes = {
  * @param options
  * @returns {*} void
  */
+// Old untyped code, adding type defitions now isn't worth the effort:
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function appendBreachResolutionChecklist(
   userBreachData: any,
-  options: Partial<{ countryCode: string }> = {}
+  options: Partial<{ countryCode: string }> = {},
 ) {
   const l10n = getL10n();
   const { verifiedEmails } = userBreachData;
@@ -100,7 +101,7 @@ function appendBreachResolutionChecklist(
     breaches.forEach((b: Breach) => {
       const dataClasses = b.DataClasses;
       const blockList = (AppConstants.HIBP_BREACH_DOMAIN_BLOCKLIST ?? "").split(
-        ","
+        ",",
       );
       const showLink = b.Domain && !blockList.includes(b.Domain);
 
@@ -108,13 +109,13 @@ function appendBreachResolutionChecklist(
         companyName: b.Name,
         breachedCompanyLink: showLink ? `https://${b.Domain}` : "",
         firefoxRelayLink: `<a href="https://relay.firefox.com/?utm_medium=mozilla-websites&utm_source=monitor&utm_campaign=&utm_content=breach-resolution" target="_blank">${l10n.getString(
-          "breach-checklist-link-firefox-relay"
+          "breach-checklist-link-firefox-relay",
         )}</a>`,
         passwordManagerLink: `<a href="https://www.mozilla.org/firefox/features/password-manager/?utm_medium=mozilla-websites&utm_source=monitor&utm_campaign=&utm_content=breach-resolution" target="_blank">${l10n.getString(
-          "breach-checklist-link-password-manager"
+          "breach-checklist-link-password-manager",
         )}</a>`,
         mozillaVpnLink: `<a href="https://www.mozilla.org/products/vpn/?utm_medium=mozilla-websites&utm_source=monitor&utm_campaign=&utm_content=breach-resolution" target="_blank">${l10n.getString(
-          "breach-checklist-link-mozilla-vpn"
+          "breach-checklist-link-mozilla-vpn",
         )}</a>`,
         equifaxLink:
           '<a href="https://www.equifax.com/personal/credit-report-services/credit-freeze/" target="_blank">Equifax</a>',
@@ -126,11 +127,12 @@ function appendBreachResolutionChecklist(
       (b as any).breachChecklist = getResolutionRecsPerBreach(
         dataClasses,
         args,
-        options
+        options,
       );
     });
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
  * Get a subset of the breach resolution data types map
@@ -143,10 +145,12 @@ function appendBreachResolutionChecklist(
  * @param {{ countryCode: string }} options
  * @returns map of relevant breach resolution recommendations
  */
+// Old untyped code, adding type defitions now isn't worth the effort:
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function getResolutionRecsPerBreach(
   dataTypes: any[],
   args: { companyName: string; breachedCompanyLink: string },
-  options: Partial<{ countryCode: string }> = {}
+  options: Partial<{ countryCode: string }> = {},
 ) {
   const filteredBreachRecs: Record<
     string,
@@ -162,12 +166,12 @@ function getResolutionRecsPerBreach(
       (!options.countryCode ||
         !Array.isArray(value.applicableCountryCodes) ||
         value.applicableCountryCodes.includes(
-          options.countryCode.toLowerCase()
+          options.countryCode.toLowerCase(),
         ))
     ) {
       filteredBreachRecs[key] = getRecommendationFromResolution(
         resolution,
-        args
+        args,
       );
     }
   }
@@ -177,13 +181,14 @@ function getResolutionRecsPerBreach(
     const resolutionTypeGeneral = BreachDataTypes.General;
     filteredBreachRecs[resolutionTypeGeneral] = getRecommendationFromResolution(
       [resolutionTypeGeneral, breachResolutionDataTypes[resolutionTypeGeneral]],
-      args
+      args,
     );
   }
 
   // loop through the breach recs
   return filteredBreachRecs;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
  * Get the fluent string for the body
@@ -192,6 +197,8 @@ function getResolutionRecsPerBreach(
  * @param args
  * @returns body string
  */
+// Old untyped code, adding type defitions now isn't worth the effort:
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 function getBodyMessage(body: string, args: any): string {
   const l10n = getL10n();
   const { stringArgs } = args;
@@ -201,12 +208,14 @@ function getBodyMessage(body: string, args: any): string {
     .getString(body, stringArgs)
     .replace(
       "<breached-company-link>",
-      companyLink ? `<a href="${companyLink}" target="_blank">` : ""
+      companyLink ? `<a href="${companyLink}" target="_blank">` : "",
     )
     .replace("</breached-company-link>", companyLink ? "</a>" : "");
 }
 
 // find fluent text based on fluent ids
+// Old untyped code, adding type defitions now isn't worth the effort:
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 function getRecommendationFromResolution(resolution: any, args: any) {
   const l10n = getL10n();
   const [resolutionType, resolutionContent] = resolution;
@@ -218,22 +227,4 @@ function getRecommendationFromResolution(resolution: any, args: any) {
   return { header, body, priority };
 }
 
-/**
- * Take breach DataTypes array from HIBP and filter based on BreachDataTypes enums above
- *
- * @param originalDataTypes breach DataTypes array from HIBP
- * @returns filtered breach data types
- */
-function filterBreachDataTypes(originalDataTypes: any[]) {
-  const relevantDataTypes = Object.values(BreachDataTypes);
-  // This function predates proper use of TypeScript, so we don't have a better
-  // return type than `any` yet:
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return originalDataTypes.filter((d) => relevantDataTypes.includes(d));
-}
-
-export {
-  BreachDataTypes,
-  appendBreachResolutionChecklist,
-  filterBreachDataTypes,
-};
+export { BreachDataTypes, appendBreachResolutionChecklist };

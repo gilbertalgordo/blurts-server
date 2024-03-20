@@ -32,11 +32,16 @@ settings-email-limit-info =
 settings-email-verification-callout = Необхідне підтвердження електронної пошти
 settings-resend-email-verification-link = Надіслати лист підтвердження ще раз
 settings-add-email-button = Додати адресу електронної пошти
+# Deprecated
 settings-delete-email-button = Видалити адресу е-пошти
+settings-remove-email-button-label = Вилучити
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Припинити моніторинг { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] З'являється в { $breachCount } відомому витоці даних.
@@ -49,13 +54,12 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = Скасувати передплату { -brand-premium }
 settings-cancel-premium-subscription-info = Ваша передплата скасується і після завершення платіжного періоду ви перейдете на безплатний обліковий запис. Ваші результати сканування захисту приватності будуть остаточно видалені й у вас залишиться лише відстеження витоків даних для однієї адреси е-пошти.
-settings-cancel-premium-subscription-link-label = Скасуйте у своєму { -brand-fx-account(case: "loc", capitalization: "lower") }
 
 ## Deactivate account
 
 settings-deactivate-account-title = Деактивувати обліковий запис
-settings-deactivate-account-info = Ви можете деактивувати { -product-short-name }, видаливши свій { -brand-fx-account }.
-settings-fxa-link-label = Перейти до налаштувань { -brand-firefox }
+settings-deactivate-account-info-2 = Ви можете деактивувати { -product-short-name }, видаливши свій { -brand-mozilla-account }.
+settings-fxa-link-label-3 = Перейти до налаштувань { -brand-mozilla-account(case: "gen") }
 
 ## Add email dialog
 

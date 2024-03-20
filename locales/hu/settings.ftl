@@ -30,11 +30,16 @@ settings-email-limit-info =
 settings-email-verification-callout = E-mail ellenőrzés szükséges
 settings-resend-email-verification-link = Ellenőrző e-mail újraküldése
 settings-add-email-button = E-mail-cím hozzáadása
+# Deprecated
 settings-delete-email-button = E-mail-cím törlése
+settings-remove-email-button-label = Eltávolítás
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = A(z) { $emailAddress } figyelésének leállítása
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [one] { $breachCount } ismert adatvédelmi incidensben szerepel.
@@ -45,13 +50,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = A { -brand-premium } előfizetés megszüntetése
 settings-cancel-premium-subscription-info = Az előfizetése ingyenes fiókká változik a jelenlegi számlázási ciklus végén. Az adatvédelmi vizsgálati eredményei véglegesen törlésre kerülnek, és csak 1 e-mail-címhez lesz bekapcsolva az adatvédelmi incidensek figyelése.
-settings-cancel-premium-subscription-link-label = Lemondás a { -brand-fx-account }jából
 
 ## Deactivate account
 
 settings-deactivate-account-title = Fiók deaktiválása
-settings-deactivate-account-info = A { -brand-fx-account }ja törlésével deaktiválhatja a { -product-short-name }t.
-settings-fxa-link-label = Ugorjon a { -brand-firefox } beállításaihoz
+settings-deactivate-account-info-2 = A { -brand-mozilla-account }ja törlésével kikapcsolhatja a { -product-short-name }t.
+settings-fxa-link-label-3 = Ugrás a { -brand-mozilla-account } beállításaihoz
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = A { -brand-monitor }-fiók törlése
+settings-delete-monitor-free-account-description = Ez véglegesen törli a { -brand-monitor }-fiókját, és kikapcsolja az összes értesítést.
+settings-delete-monitor-free-account-cta-label = Fiók törlése
+settings-delete-monitor-free-account-dialog-title = A { -brand-monitor }-fiókja véglegesen törölve lesz
+settings-delete-monitor-free-account-dialog-lead = Az összes { -brand-monitor }-fiókinformációja törölve lesz, és a továbbiakban nem fogjuk figyelni az új adatvédelmi incidenseket. Ez nem törli a { -brand-mozilla }-fiókját.
+settings-delete-monitor-free-account-dialog-cta-label = Fiók törlése
+settings-delete-monitor-free-account-dialog-cancel-button-label = Mégse, visszalépés
+settings-delete-monitor-plus-account-title = A { -brand-monitor }-fiók törlése
+settings-delete-monitor-plus-account-description = Ez véglegesen törli a { -brand-monitor }-fiókját, és azonnal megszünteti a fizetős { -brand-monitor-plus }-előfizetését.
+settings-delete-monitor-plus-account-cta-label = Fiók törlése
+settings-delete-monitor-plus-account-dialog-title = A { -brand-monitor }-fiókja véglegesen törölve lesz
+settings-delete-monitor-plus-account-dialog-lead-p1 = Az összes { -brand-monitor }-fiókinformációja törölve lesz, és a továbbiakban nem fogjuk figyelni az új adatvédelmi incidenseket és az adatbrókerekhez kerülő adatokhoz. Ez nem törli a { -brand-mozilla }-fiókját.
+settings-delete-monitor-plus-account-dialog-lead-p2 = A fizetős előfizetése ma lejár, és az előfizetés hátralévő részében nem lesz részarányos.
+settings-delete-monitor-plus-account-dialog-cta-label = Fiók törlése
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Mégse, visszalépés
+settings-delete-monitor-account-confirmation-toast-label = A { -brand-monitor }-fiókja véglegesen törölve lett.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Eltüntetés
 
 ## Add email dialog
 

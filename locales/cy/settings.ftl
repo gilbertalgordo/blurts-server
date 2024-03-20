@@ -34,11 +34,16 @@ settings-email-limit-info =
 settings-email-verification-callout = Mae angen gwirio'r e-bost
 settings-resend-email-verification-link = Ail-anfon yr e-bost gwirio
 settings-add-email-button = Ychwanegu cyfeiriad e-bost
+# Deprecated
 settings-delete-email-button = Dileu cyfeiriad e-bost
+settings-remove-email-button-label = Tynnu
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Rhoi'r gorau i fonitro { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info =
     { $breachCount ->
         [zero] Yn ymddangos mewn { $breachCount } tor-data.
@@ -53,13 +58,32 @@ settings-email-number-of-breaches-info =
 
 settings-cancel-premium-subscription-title = Diddymu tanysgrifiad { -brand-premium }
 settings-cancel-premium-subscription-info = Bydd eich tanysgrifiad yn dychwelyd i gyfrif am ddim ar ôl i'r cylch bilio cyfredol ddod i ben. Bydd canlyniadau eich sgan diogelu preifatrwydd yn cael eu dileu'n barhaol, a dim ond ar gyfer 1 cyfeiriad e-bost y bydd gennych fonitro tor-data.
-settings-cancel-premium-subscription-link-label = Diddymu'ch { -brand-fx-account }
 
 ## Deactivate account
 
 settings-deactivate-account-title = Analluogi cyfrif
-settings-deactivate-account-info = Gallwch ddadalluogi { -product-short-name } drwy ddileu eich { -brand-fx-account }.
-settings-fxa-link-label = Ewch i Gosodiadau { -brand-firefox }
+settings-deactivate-account-info-2 = Gallwch ddadweithredu { -product-short-name } drwy ddileu eich { -brand-mozilla-account }.
+settings-fxa-link-label-3 = Ewch i Gosodiadau { -brand-mozilla-account }
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = Dileu'r cyfrif { -brand-monitor }
+settings-delete-monitor-free-account-description = Bydd hyn yn dileu eich cyfrif { -brand-monitor } yn barhaol ac yn diffodd pob hysbysiad.
+settings-delete-monitor-free-account-cta-label = Dileu'r cyfrif
+settings-delete-monitor-free-account-dialog-title = Bydd eich cyfrif { -brand-monitor } yn cael ei ddileu'n barhaol
+settings-delete-monitor-free-account-dialog-lead = Bydd holl fanylion eich cyfrif { -brand-monitor } yn cael ei ddileu a fyddwn ni ddim yn monitro unrhyw dor-data newydd bellach. Fydd hyn ddim yn dileu eich cyfrif { -brand-mozilla }.
+settings-delete-monitor-free-account-dialog-cta-label = Dileu'r cyfrif
+settings-delete-monitor-free-account-dialog-cancel-button-label = Dim gwahaniaeth, mynd â fi yn ôl
+settings-delete-monitor-plus-account-title = Dileu cyfrif { -brand-monitor }
+settings-delete-monitor-plus-account-description = Bydd hyn yn dileu eich cyfrif { -brand-monitor } yn barhaol ac yn dod â'ch tanysgrifiad { -brand-monitor-plus } taledig i ben ar unwaith.
+settings-delete-monitor-plus-account-cta-label = Dileu'r cyfrif
+settings-delete-monitor-plus-account-dialog-title = Bydd eich cyfrif { -brand-monitor } yn cael ei ddileu yn barhaol
+settings-delete-monitor-plus-account-dialog-lead-p1 = Bydd holl fanylion eich cyfrif { -brand-monitor } yn cael ei ddileu a fyddwn ni ddim  bellach yn monitro am dor-data newydd neu ddatgeliadau brocer data. Fydd hyn ddim yn dileu eich cyfrif { -brand-mozilla }.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Bydd eich tanysgrifiad taledig yn dod i ben heddiw a chewch chi ddim eich prorata am weddill eich tanysgrifiad.
+settings-delete-monitor-plus-account-dialog-cta-label = Dileu'r cyfrif
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Dim gwahaniaeth, mynd â fi yn ôl
+settings-delete-monitor-account-confirmation-toast-label = Mae eich cyfrif { -brand-monitor } bellach wedi'i ddileu'n barhaol.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Cau
 
 ## Add email dialog
 

@@ -25,6 +25,7 @@ career-levels = Carrièreniveaus
 cellular-network-names = Mobiel-netwerknamen
 charitable-donations = Liefdadigheidsdoelen
 chat-logs = Chatlogboeken
+clothing-sizes = Kledingmaten
 credit-card-cvv = Creditcard-CVV
 credit-cards = Creditcards
 credit-status-information = Informatie over kredietstatus
@@ -80,6 +81,7 @@ living-costs = Kosten levensonderhoud
 # This string refers to financial loans.
 loan-information = Leningsgegevens
 login-histories = Aanmeldgeschiedenissen
+loyalty-program-details = Details klantenprogramma
 mac-addresses = MAC-adressen
 marital-statuses = Huwelijkse staten
 # Mnemonic phrases are a group of words used to access the content of cryptocurrency wallets.
@@ -140,6 +142,7 @@ spouses-names = Namen echtgenoten
 support-tickets = Ondersteuningsaanvragen
 survey-results = Resultaten van vragenlijsten
 taxation-records = Belastinggegevens
+telecommunications-carrier = Telecomproviders
 time-zones = Tijdzones
 travel-habits = Reisgewoonten
 user-statuses = Gebruikersstatussen

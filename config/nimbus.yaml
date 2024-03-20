@@ -1,8 +1,8 @@
 about:
-  description: Nimbus Feature Manifest for Python Testing
+  description: Nimbus Feature Manifest for Monitor Web testing
 channels:
-  - nightly
-  - developer
+  - staging
+  - production
 features:
   example-feature:
     description: An example feature
@@ -16,9 +16,9 @@ features:
         type: Option<String>
         default: null
     defaults:
-      - channel: nightly
+      - channel: staging
         value: { "enabled": true }
-      - channel: developer
+      - channel: production
         value: { "something": "wicked" }
 
 types:

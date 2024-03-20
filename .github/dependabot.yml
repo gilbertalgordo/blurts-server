@@ -3,10 +3,15 @@
 
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 10
     groups:
       eslint:
         patterns:
@@ -42,6 +47,23 @@ updates:
           - "@storybook/*"
         exclude-patterns:
           - "eslint-config-next"
+      fluent:
+        patterns:
+          - "@fluent/*"
+      nextjs:
+        patterns:
+          - "eslint-config-next"
+          - "next"
+          - "@next/*"
+      react-aria:
+        patterns:
+          - "react-aria"
+          - "react-stately"
+      stylelint:
+        patterns:
+          - "stylelint"
+          - "stylelint-scss"
+          - "stylelint-config-recommended-scss"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:

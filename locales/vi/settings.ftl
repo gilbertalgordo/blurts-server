@@ -26,24 +26,48 @@ settings-email-limit-info = Tài khoản của bạn bao gồm việc giám sát
 settings-email-verification-callout = Yêu cầu xác minh email
 settings-resend-email-verification-link = Gửi lại email xác minh
 settings-add-email-button = Thêm địa chỉ email
+# Deprecated
 settings-delete-email-button = Xóa địa chỉ email
+settings-remove-email-button-label = Xóa
+# Variables:
+#   $emailAddress (string) - The email address to remove, e.g. `billnye@example.com`
+settings-remove-email-button-tooltip = Dừng giám sát { $emailAddress }
 # This string is shown beneath each of the user’s email addresses to indicate
 # how many known breaches that email address was found in.
 # Variables:
-#   $breachCount (numer) - Number of breaches
+#   $breachCount (number) - Number of breaches
 settings-email-number-of-breaches-info = Xuất hiện trong { $breachCount } rò rỉ dữ liệu đã biết.
 
 ## Cancel Premium subscription
 
 settings-cancel-premium-subscription-title = Hủy thuê bao { -brand-premium }
 settings-cancel-premium-subscription-info = Thuê bao của bạn sẽ trở lại tài khoản miễn phí sau khi chu kỳ thanh toán hiện tại kết thúc. Kết quả quét bảo vệ quyền riêng tư của bạn sẽ bị xóa vĩnh viễn và bạn sẽ chỉ được giám sát rò rỉ dữ liệu cho 1 địa chỉ email.
-settings-cancel-premium-subscription-link-label = Hủy từ { -brand-fx-account } của bạn
 
 ## Deactivate account
 
 settings-deactivate-account-title = Hủy kích hoạt tài khoản
-settings-deactivate-account-info = Bạn có thể hủy kích hoạt { -product-short-name } bằng cách xóa { -brand-fx-account } của mình.
-settings-fxa-link-label = Đi đến cài đặt { -brand-firefox }
+settings-deactivate-account-info-2 = Bạn có thể vô hiệu hóa { -product-short-name } bằng cách xoá { -brand-mozilla-account } của bạn.
+settings-fxa-link-label-3 = Đi đến cài đặt { -brand-mozilla-account }
+
+## Delete Monitor account
+
+settings-delete-monitor-free-account-title = Xoá tài khoản { -brand-monitor }
+settings-delete-monitor-free-account-description = Thao tác này sẽ xóa vĩnh viễn tài khoản { -brand-monitor } của bạn và tắt tất cả thông báo.
+settings-delete-monitor-free-account-cta-label = Xóa tài khoản
+settings-delete-monitor-free-account-dialog-title = Tài khoản { -brand-monitor } của bạn sẽ bị xoá vĩnh viễn
+settings-delete-monitor-free-account-dialog-lead = Tất cả thông tin tài khoản { -brand-monitor } của bạn sẽ bị xóa và chúng tôi sẽ không còn theo dõi các rò rỉ dữ liệu mới cho bạn. Điều này sẽ không xoá tài khoản { -brand-mozilla } của bạn.
+settings-delete-monitor-free-account-dialog-cta-label = Xóa tài khoản
+settings-delete-monitor-free-account-dialog-cancel-button-label = Nghĩ lại rồi, đưa tôi quay lại
+settings-delete-monitor-plus-account-title = Xoá tài khoản { -brand-monitor }
+settings-delete-monitor-plus-account-description = Điều này sẽ xoá tài khoản { -brand-monitor } của bạn vĩnh viễn và ngay lập tức kết thúc khoản thanh toán thuê bao { -brand-monitor-plus } của bạn.
+settings-delete-monitor-plus-account-cta-label = Xóa tài khoản
+settings-delete-monitor-plus-account-dialog-title = Tài khoản { -brand-monitor } của bạn sẽ bị xoá vĩnh viễn
+settings-delete-monitor-plus-account-dialog-lead-p1 = Tất cả thông tin tài khoản { -brand-monitor } của bạn sẽ bị xóa và chúng tôi sẽ không còn theo dõi các rò rỉ dữ liệu mới hoặc môi giới dữ liệu bị lộ mới cho bạn. Điều này sẽ không xoá tài khoản { -brand-mozilla } của bạn.
+settings-delete-monitor-plus-account-dialog-lead-p2 = Thuê bao trả phí của bạn sẽ kết thúc vào hôm nay và bạn sẽ không được tính theo tỷ lệ cho thời gian còn lại của thuê bao.
+settings-delete-monitor-plus-account-dialog-cta-label = Xóa tài khoản
+settings-delete-monitor-plus-account-dialog-cancel-button-label = Nghĩ lại rồi, đưa tôi quay lại
+settings-delete-monitor-account-confirmation-toast-label = Tài khoản { -brand-monitor } của bạn hiện đã bị xóa vĩnh viễn.
+settings-delete-monitor-account-confirmation-toast-dismiss-label = Bỏ qua
 
 ## Add email dialog
 

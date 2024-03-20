@@ -1,10 +1,15 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
 # Strings for the main app
 
 
 ## The following messages are brand and should be kept entirely in English
 ## unless otherwise indicated.
 
--product-name = Firefox Monitor
+-product-name = Mozilla Monitor
 -product-name-nowrap = <span class="nowrap">{ -product-name }</span>
 -product-short-name = Monitor
 -brand-name =
@@ -46,7 +51,7 @@ error-hibp-throttled = Preveč povezav na { -brand-HIBP }.
 error-hibp-connect = Napaka pri povezovanju na { -brand-HIBP }.
 error-hibp-load-breaches = Ni bilo mogoče naložiti podatkov o krajah.
 error-must-be-signed-in = Prijaviti se morate v svoj { -brand-fxa }.
-error-to-finish-verifying = Če želite dokončati preverjanje tega e-poštnega naslova za { -product-name }, morate biti prijavljeni z e-poštnim naslovom primarnega računa.
+error-to-finish-verifying = Če želite dokončati preverjanje tega e-poštnega naslova za { -product-name }, morate biti prijavljeni z e-poštnim naslovom glavnega računa.
 home-title = { -product-name }
 home-not-found = Strani ni mogoče najti.
 oauth-invalid-session = Neveljavna seja
@@ -59,6 +64,9 @@ user-add-duplicate-email = Ta e-poštni naslov je že bil dodan v { -product-nam
 #   $preferencesLink (String) - Link to preferences
 #   $userEmail (String) - User email address
 user-add-duplicate-email-part-2 = Obiščite { $preferencesLink } in preverite stanje za { $userEmail }.
+user-add-verification-email-just-sent = Drugega potrditvenega sporočila ni mogoče poslati tako hitro. Poskusite znova pozneje.
+user-add-unknown-error = Pri dodajanju drugega e-poštnega naslova je prišlo do napake. Poskusite znova pozneje.
+user-delete-unknown-error = Pri odstranjevanju e-poštnega naslova je prišlo do napake. Poskusite znova pozneje.
 error-headline = Napaka
 user-verify-token-error = Zahtevan je potrditveni žeton.
 user-verify-email-report-subject = Vaše poročilo { -product-name }
@@ -166,7 +174,7 @@ sensitive-sites-copy =
     dostop do vašega e-poštnega računa).
 delayed-reporting-headline = Zakaj je trajalo toliko časa, da je bila kraja podatkov prijavljena?
 delayed-reporting-copy =
-    Včasih traja mesece ali leta, da pride do izpostavitve poverilnic 
+    Včasih traja mesece ali leta, da pride do izpostavitve prijavnih podatkov 
     v primeru kraje podatkov. Kraje podatkov se dodajo v našo bazo 
     takoj ko so odkrite in preverjene.
 about-fxm-headline = O { -product-name }ju
@@ -340,16 +348,16 @@ no-other-breaches-found = V osnovnem iskanju ni bilo drugih kraj podatkov
 no-results-blurb = Te kraje ni v naši bazi podatkov.
 # This string contains nested markup that is later used to style and link the text inside of it.
 # Please do not modify or remove "<a>", "</a>", "<span>" and "</span>".
-facebook-breach-note = <span>Vaš e-poštni naslov ni prikazan v tem razkritju, vendar je vaša telefonska številka morda še vedno ranljiva.</span> Nekateri računi, ki so bili ogroženi v razkritju podatkov na Facebooku, so vključevali telefonske številke in druge osebne podatke, ne pa tudi e-poštnih naslovov. Če ste se kdaj prijavili za Facebook račun – tudi če ga še ne uporabljate – vam priporočamo, da se zaščitite s temi koraki
+facebook-breach-note = <span>Vaš e-poštni naslov ni prikazan v tem razkritju, vendar je vaša telefonska številka morda še vedno ranljiva.</span> Nekateri računi, ki so bili ogroženi v razkritju podatkov na Facebooku, so vključevali telefonske številke in druge osebne podatke, ne pa tudi e-poštnih naslovov. Če ste kdaj ustvarili račun za Facebook – tudi če ga trenutno ne uporabljate – vam priporočamo, da se zaščitite z naslednjimi koraki
 # This string contains nested markup that is later used to style and link the text inside of it.
 # Please do not modify or remove "<a>", "</a>", "<span>" and "</span>".
 facebook-breach-what-to-do-1-headline = <span>V <a>svojem profilu na Facebooku</a> nastavite svoje podatke na "Samo jaz" ali drugo nejavno nastavitev.</span>
 facebook-breach-what-to-do-1-copy = Med tem razkritjem so se hekerji dokopali do podatkov profila, ki je bil nastavljen kot "odprt za javnost" ali "deljen s prijatelji". Te podatke je mogoče združiti z drugimi podatki za dostop do še več vaših osebnih podatkov in računov.
 # This string contains nested markup that is later used to style and link the text inside of it.
 # Please do not modify or remove "<a>", "</a>", "<span>" and "</span>".
-facebook-breach-what-to-do-2-headline = <span>Spremenite geslo, PIN ali druge varnostne podatke za svoje <a>račune pri operaterju</a>, da preprečite zamenjavo SIM</span>.
+facebook-breach-what-to-do-2-headline = <span>Spremenite geslo, PIN ali druge prijavne podatke za svoje <a>račune pri mobilnem operaterju</a>, da preprečite zamenjavo SIM</span>.
 facebook-breach-what-to-do-2-copy = Pri zamenjavi SIM, imenovani tudi SIM-jacking, heker s telefonskimi številkami, datumom rojstva in drugimi podatki prevzame mobilno številko osebe in nato vdre v njeno e-pošto, družbena omrežja in celo finančne račune.
-facebook-breach-what-to-do-3 = Oglejte si vsa priporočila na naši Facebook strani
+facebook-breach-what-to-do-3 = Oglejte si vsa priporočila na naši strani o razkritju podatkov na Facebooku
 # "Appears in-page as: Showing: All Breaches"
 currently-showing = Prikazano:
 
@@ -705,7 +713,7 @@ ad-unit-2-do-you-worry = Vas skrbi varnost na javnih omrežjih Wi-Fi?
 ad-unit-3-stay-in-the-game = Ostanite v igri!
 ad-unit-3-lets-you-keep = { -brand-mozilla-vpn } vam ponuja varno in stabilno povezavo med igranjem iger ali pretakanjem filmov.
 # ad 3 list item 1
-ad-unit-3-prevent-throttling = Prepreči dušenje
+ad-unit-3-prevent-throttling = Prepreči omejevanje
 # ad 3 list item 2
 ad-unit-3-be-anywhere = Bodite kjerkoli na svetu
 # ad 3 list item 3
@@ -713,7 +721,7 @@ ad-unit-3-access-more = Več dostopa
 # ad 4 heading
 ad-unit-4-shopping-with = Nakupovanje z e-poštnimi maskami
 ad-unit-4-want-to-buy = Želite nekaj kupiti na spletu, vendar ne poznate ali popolnoma zaupate trgovini?
-ad-unit-4-shop-online = Pri spletnem nakupovanju uporabite masko za e-pošto. Prejmite potrditveno sporočilo na pravi e-poštni naslov in masko izklopite kadarkoli pozneje.
+ad-unit-4-shop-online = Pri spletnem nakupovanju uporabite e-poštno masko. Prejmite potrditveno sporočilo na pravi e-poštni naslov in izključite masko kadarkoli pozneje.
 # ad 5 heading
 ad-unit-5-on-the-go = Na poti s { -brand-relay }
 ad-unit-5-instantly-make = V trenutku si ustvarite e-poštno masko po meri, kjerkoli ste in kamorkoli greste!
@@ -721,15 +729,15 @@ ad-unit-5-instantly-make = V trenutku si ustvarite e-poštno masko po meri, kjer
 ad-unit-5-connect-on-the-go = Povežite se na poti
 ad-unit-5-privately-sign-in = Uporabite e-poštno masko, ko se želite zasebno prijaviti v svoji priljubljeni kavarni ali v javno omrežje Wi-Fi
 # ad 5 subheading 2
-ad-unit-5-email-receipts = Prejmi e-poštna potrdila o prejemu
+ad-unit-5-email-receipts = Prejmi potrdila o prejemu e-pošte
 ad-unit-5-share-custom-email = Delite e-poštno masko po meri za račune za nakupovanje v trgovini, ne da bi delili svoj pravi e-poštni naslov
 # ad 5 subheading 3
 ad-unit-5-use-on-phone = Uporabite v telefonu
 ad-unit-5-no-matter-where = Ne glede na to, kje ste, si v nekaj sekundah ustvarite e-poštno masko po meri za kar koli želite
 # ad 6 heading
 ad-unit-6-worry-free = Brezskrbna registracija
-ad-unit-6-want-to-start = Želite skleniti novo naročnino, se odzvati na povabilo ali prejeti ugodno promocijsko kodo, ne da bi vaš e-poštni predal preplavili vsiljeno pošto?
-ad-unit-6-before-you-complete = Preden dokončate naslednjo prijavo, uporabite e-poštno masko namesto prave, da zaščitite svoje podatke in obdržite nadzor nad mapo »Prejeto«
+ad-unit-6-want-to-start = Želite skleniti novo naročnino, se odzvati na povabilo ali prejeti ugodno promocijsko kodo, ne da bi vaš e-poštni predal preplavila vsiljena pošta?
+ad-unit-6-before-you-complete = Preden dokončate naslednjo prijavo, uporabite e-poštno masko namesto pravega e-poštnega naslova, da zaščitite svoje podatke in obdržite nadzor nad mapo Prejeto
 
 # Monitor V2
 
@@ -745,7 +753,8 @@ ad-unit-6-before-you-complete = Preden dokončate naslednjo prijavo, uporabite e
         [mestnik] Firefoxu
         [orodnik] Firefoxom
     }
--brand-fx-monitor = Firefox Monitor
+-brand-monitor = Monitor
+-brand-fx-monitor = Mozilla Monitor
 -brand-mozilla =
     { $sklon ->
        *[imenovalnik] Mozilla
@@ -769,12 +778,39 @@ ad-unit-6-before-you-complete = Preden dokončate naslednjo prijavo, uporabite e
     }
 -brand-mozilla-vpn = Mozilla VPN
 -brand-relay = Firefox Relay
+-brand-mozilla-monitor =
+    { $sklon ->
+        [rodilnik] Mozilla Monitorja
+        [dajalnik] Mozilla Monitorju
+        [tozilnik] Mozilla Monitor
+        [mestnik] Mozilla Monitorju
+        [orodnik] Mozilla Monitorjem
+       *[imenovalnik] Mozilla Monitor
+    }
+-brand-monitor-plus =
+    { $sklon ->
+        [rodilnik] Monitorja Plus
+        [dajalnik] Monitorju Plus
+        [tozilnik] Monitor Plus
+        [mestnik] Monitorju Plus
+        [orodnik] Monitorjem Plus
+       *[imenovalnik] Monitor Plus
+    }
 
 ##
 
-# “account” can be localized, “Firefox” must be treated as a brand,
+# “account” can be localized, “Mozilla” must be treated as a brand,
 # and kept in English.
--brand-fx-account = Firefox Račun
+-brand-mozilla-account =
+    { $sklon ->
+        [rodilnik] Računa Mozilla
+        [dajalnik] Računu Mozilla
+        [tozilnik] Račun Mozilla
+        [mestnik] Računu Mozilla
+        [orodnik] Računom Mozilla
+       *[imenovalnik] Račun Mozilla
+    }
+open-in-new-tab-alt = Odpri povezavo v novem zavihku
 
 ## Search Engine Optimization
 
@@ -782,38 +818,67 @@ meta-desc-2 = Ugotovite, ali ste bili vpleteni v krajo podatkov s { -brand-fx-mo
 
 ## Header
 
+# Deprecated
 brand-fx-monitor = { -brand-fx-monitor }
 sign-in = Prijavite se
+brand-mozilla-monitor = { -brand-fx-monitor }
 
 ## Site navigation
 
 site-nav-breaches-link = Razrešite kraje podatkov
 site-nav-settings-link = Nastavitve
 site-nav-help-link = Pomoč in podpora
-# This call-out is above 2 image links for Firefox Relay and Mozilla VPN 
+# This call-out is above 2 image links for Firefox Relay and Mozilla VPN
 site-nav-ad-callout = Preizkusite druga naša varnostna orodja:
 brand-relay = { -brand-relay }
 brand-mozilla-vpn = { -brand-mozilla-vpn }
+mobile-menu-label = Glavni meni
+main-nav-button-collapse-label = Strni meni
+main-nav-button-collapse-tooltip = Strni meni
+main-nav-button-expand-label = Razširi meni
+main-nav-button-expand-tooltip = Razširi meni
+main-nav-label = Krmarjenje
+main-nav-link-home-label = Domov
+main-nav-link-dashboard-label = Nadzorna plošča
+main-nav-link-settings-label = Nastavitve
+main-nav-link-faq-label = Pogosta vprašanja
+main-nav-link-faq-tooltip = Pogosto zastavljena vprašanja
 
 ## User menu
 
+# Obsolete
 menu-button-title = Uporabniški meni
+# Obsolete
 menu-button-alt = Odpri uporabniški meni
+# Obsolete
 menu-list-accessible-label = Meni računa
-menu-item-fxa = Upravljajte svoj { -brand-fx-account }
-menu-item-fxa-alt = Odpri stran { -brand-fx-account }
+# Obsolete
+menu-item-fxa-2 = Upravljajte svoj { -brand-mozilla-account }
+# Obsolete
 menu-item-settings = Nastavitve
-menu-item-settings-alt = Odpri stran z nastavitvami
+# Obsolete
 menu-item-help = Pomoč in podpora
-menu-item-help-alt = Odpri stran za pomoč in podporo
+# Obsolete
 menu-item-logout = Odjava
+user-menu-trigger-label = Odpri uporabniški meni
+user-menu-trigger-tooltip = Profil
+user-menu-manage-fxa-label = Upravljajte svoj { -brand-mozilla-account }
+user-menu-settings-label = Nastavitve
+user-menu-settings-tooltip = Nastavi { -brand-mozilla-monitor }
+user-menu-help-label = Pomoč in podpora
+user-menu-help-tooltip = Pomoč pri uporabi { -brand-mozilla-monitor(sklon: "rodilnik") }
+user-menu-signout-label = Odjava
+user-menu-signout-tooltip = Odjava iz { -brand-mozilla-monitor(sklon: "rodilnik") }
 
 ## Footer
 
 mozilla = { -brand-Mozilla }
-terms-and-privacy = Pogoji in zasebnost
+terms-of-service = Pogoji uporabe
+privacy-notice = Obvestilo o zasebnosti
 github = { -brand-github }
 footer-nav-all-breaches = Vse kraje podatkov
+footer-external-link-faq-label = Pogosta vprašanja
+footer-external-link-faq-tooltip = Pogosto zastavljena vprašanja
 
 ## Error page
 
@@ -838,7 +903,7 @@ exposed-data = Izpostavljeni podatki:
 ## Public breach detail page
 
 find-out-if-2 = Ugotovite, ali ste bili vpleteni v to krajo
-find-out-if-description = Pomagali vam bomo hitro ugotoviti, ali je bil vaš e-poštni naslov izpostavljen v tej kraji, in razumeli, kaj morate storiti naprej.
+find-out-if-description = Pomagali vam bomo hitro ugotoviti, ali je bil vaš e-poštni naslov izpostavljen v tej kraji, in razumeti, kaj morate storiti.
 breach-detail-cta-signup = Preverite kraje podatkov
 
 ## Floating banner
@@ -846,3 +911,10 @@ breach-detail-cta-signup = Preverite kraje podatkov
 floating-banner-text = Okrepite svojo spletno varnost z novicami, nasveti in posodobitvami { -brand-Mozilla(sklon: "rodilnik") }.
 floating-banner-link-label = Prijava
 floating-banner-dismiss-button-label = Ne, hvala
+
+## Firefox Monitor -> Mozilla Monitor rebrand banner
+
+banner-monitor-rebrand-text = <b>{ -brand-mozilla-monitor }</b>: Novo ime, nova podoba in novi načini za <b>povrnitev zasebnosti</b>.
+banner-monitor-rebrand-dismiss-button-label = V redu
+banner-monitor-rebrand-dismiss-button-tooltip = Skrij
+loading-accessibility = Nalaganje

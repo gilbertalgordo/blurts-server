@@ -67,7 +67,7 @@ export type AlternateNameData = [
   IsColloquial,
   IsHistoric,
   From,
-  To
+  To,
 ];
 
 /** Name of geographical point (utf8), varchar(200). */
@@ -831,18 +831,17 @@ export type LocationData = [
   LocationElevation,
   LocationDem,
   LocationTimezone,
-  LocationModificationDate
+  LocationModificationDate,
 ];
 
+// NOTE: The location JSON uses short keys and
+// optional properties to reduce filesize.
 export interface RelevantLocation {
-  id: string;
-  name: string;
-  stateCode: string;
-  countryCode: string;
-  featureClass: string;
-  featureCode: string;
-  population: string;
-  alternateNames?: Array<string>;
+  id: string; // GeoName location ID
+  n: string; // location name
+  s: string; // state code
+  p?: string; // population
+  a?: Array<string>; // alternate location names
 }
 
 export interface RelevantLocationAlternate {

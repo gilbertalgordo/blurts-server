@@ -2,19 +2,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../utils/auth";
 import { NextRequest, NextResponse } from "next/server";
 
+import { logger } from "../../../../../functions/server/logging";
+
+import { getServerSession } from "../../../../../functions/server/getServerSession";
 import AppConstants from "../../../../../../appConstants";
 import {
   getOnerepProfileId,
-  getSubscriberByEmail,
+  getSubscriberByFxaUid,
 } from "../../../../../../db/tables/subscribers";
 
 import {
-  getLatestOnerepScan,
-  setOnerepScanResults,
+  getLatestOnerepScanResults,
+  addOnerepScanResults,
 } from "../../../../../../db/tables/onerep_scans";
 import {
   ListScanResultsResponse,
@@ -29,48 +30,47 @@ export interface ScanProgressBody {
   results?: ListScanResultsResponse;
 }
 
-// For development we are periodically checking the scan progress and set the
-// result if finished. Polling the OneRep API is only necessary in development
-// environments - a webhook is used elsewhere.
+// Periodically checking the scan progress and set the result if finished.
+// A webhook is used as well, but this ensures that we get the latest data.
 // @see the onerep-events route and https://docs.onerep.com/#section/Webhooks-Endpoints
 export async function GET(
-  _req: NextRequest
-): Promise<NextResponse<ScanProgressBody | unknown>> {
-  const session = await getServerSession(authOptions);
-  if (typeof session?.user?.email === "string") {
+  _req: NextRequest,
+): Promise<NextResponse<ScanProgressBody> | NextResponse<unknown>> {
+  const session = await getServerSession();
+  if (typeof session?.user?.subscriber?.fxa_uid === "string") {
     try {
-      const subscriber = await getSubscriberByEmail(session.user.email);
-      const profileId = (await getOnerepProfileId(subscriber.id))[0][
-        "onerep_profile_id"
-      ] as number;
+      const subscriber = await getSubscriberByFxaUid(
+        session.user.subscriber?.fxa_uid,
+      );
+      if (!subscriber) {
+        throw new Error("No subscriber found for current session.");
+      }
+      const profileId = await getOnerepProfileId(subscriber.id);
 
-      const latestScans = await getLatestOnerepScan(profileId);
-      const latestScanId = latestScans?.onerep_scan_id;
+      const latestScan = await getLatestOnerepScanResults(profileId);
+      const latestScanId = latestScan.scan?.onerep_scan_id;
 
-      if (latestScanId) {
+      if (
+        typeof latestScanId !== "undefined" &&
+        typeof profileId === "number"
+      ) {
         const scan = await getScanDetails(profileId, latestScanId);
 
-        // Store scan results only for development environments.
-        if (
-          scan.status === "finished" &&
-          (process.env.NODE_ENV === "development" ||
-            process.env.APP_ENV === "heroku")
-        ) {
+        // Store scan results.
+        if (scan.status === "finished") {
           const allScanResults = await getAllScanResults(profileId);
-          await setOnerepScanResults(profileId, scan.id, {
-            data: allScanResults,
-          });
+          await addOnerepScanResults(profileId, allScanResults);
         }
 
         return NextResponse.json(
           { success: true, status: scan.status },
-          { status: 200 }
+          { status: 200 },
         );
       }
 
       return NextResponse.json({ success: true }, { status: 200 });
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       return NextResponse.json({ success: false }, { status: 500 });
     }
   } else {

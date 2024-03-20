@@ -17,19 +17,17 @@ export type TabsProps =
   | TabListStateOptions<object>
   | AriaTabListOptions<object>;
 
-export interface TabListProps {
+export type TabListProps = TabsProps & {
   tabs: Array<{
     key: Key;
     name: string;
     content?: ReactNode;
   }>;
-  defaultSelectedKey?: Key;
-  onSelectionChange?: (key: Key) => void;
-}
+};
 
 export interface TabParams {
   item: {
-    key: Key;
+    key: Parameters<typeof useTab>[0]["key"];
     rendered: ReactNode;
   };
   state: TabListState<object>;

@@ -4,19 +4,23 @@
 
 "use client";
 
-import { useRef } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 import { useComboBox } from "react-aria";
 import { useComboBoxState, ComboBoxStateOptions } from "react-stately";
 import { ListBox } from "./ListBox";
 import { Popover } from "./Popover";
-import styles from "./ComboBox.module.scss";
+import inputFieldStyles from "./InputField.module.scss";
+import comboBoxStyles from "./ComboBox.module.scss";
+import { ErrorIcon } from "../server/Icons";
+import { useL10n } from "../../hooks/l10n";
 
 interface ComboBoxProps extends ComboBoxStateOptions<object> {
   items: Array<object>;
+  listPlaceholder?: ReactElement;
 }
 
 function ComboBox(props: ComboBoxProps) {
-  const { errorMessage, label, isRequired, validationState } = props;
+  const { errorMessage, isInvalid, isRequired, label, listPlaceholder } = props;
   const inputRef = useRef(null);
   const listBoxRef = useRef(null);
   const popoverRef = useRef(null);
@@ -29,45 +33,73 @@ function ComboBox(props: ComboBoxProps) {
         listBoxRef,
         popoverRef,
       },
-      state
+      state,
     );
-  const isInvalid = validationState === "invalid";
-  const showError = errorMessage && isInvalid;
+  const l10n = useL10n();
+
+  useEffect(() => {
+    /* c8 ignore next 5 */
+    // This does get hit by unit tests, but for some reason, since the Node
+    // 20.10 upgrade, it (and this comment) no longer gets marked as such:
+    if (inputProps.value === "") {
+      state.close();
+    }
+  }, [inputProps.value, state]);
 
   return (
     <>
-      <div className={styles.comboBox}>
-        <label {...labelProps} className={styles.inputLabel}>
+      <div className={inputFieldStyles.comboBox}>
+        <label {...labelProps} className={inputFieldStyles.inputLabel}>
           {label}
-          {isRequired ? <span aria-hidden="true">*</span> : ""}
+          {isRequired ? (
+            <span aria-hidden="true">*</span>
+          ) : (
+            /* c8 ignore next 4 */
+            // This does get hit by unit tests, but for some reason, since the
+            // Node 20.10 upgrade, it (and this comment) no longer gets marked
+            // as such:
+            ""
+          )}
         </label>
         <input
           {...inputProps}
           ref={inputRef}
-          className={`${styles.inputField} ${
-            !inputProps.value ? styles.noValue : ""
-          } ${isInvalid ? styles.hasError : ""}`}
+          className={`${inputFieldStyles.inputField} ${
+            !inputProps.value
+              ? /* c8 ignore next 4 */
+                // This does get hit by unit tests, but for some reason, since
+                // the Node 20.10 upgrade, it (and this comment) no longer gets
+                // marked as such:
+                inputFieldStyles.noValue
+              : ""
+          } ${isInvalid ? /* c8 ignore next */ inputFieldStyles.hasError : ""}`}
         />
-        {showError && (
-          <div {...errorMessageProps} className={styles.inputMessage}>
+        {isInvalid && typeof errorMessage === "string" && (
+          <div {...errorMessageProps} className={inputFieldStyles.inputMessage}>
+            <ErrorIcon
+              alt={l10n.getString("onboarding-enter-details-input-error-alt")}
+            />
             {errorMessage}
           </div>
         )}
       </div>
+
       {state.isOpen && (
         <Popover
-          isVisible={props.items?.length > 0}
-          offset={4}
+          offset={8}
           popoverRef={popoverRef}
           state={state}
           triggerRef={inputRef}
         >
-          <ListBox
-            {...listBoxProps}
-            listBoxRef={listBoxRef}
-            parentRef={inputRef}
-            state={state}
-          />
+          <div className={comboBoxStyles.popoverList}>
+            <ListBox
+              {...listBoxProps}
+              listBoxRef={listBoxRef}
+              listPlaceholder={listPlaceholder}
+              parentRef={inputRef}
+              state={state}
+            />
+          </div>
         </Popover>
       )}
     </>

@@ -40,10 +40,11 @@ const customJestConfig = {
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "<rootDir>/src/db/knexfile.js",
+    "<rootDir>/src/apiMocks/mockData.ts",
+    "<rootDir>/src/(.+).stories.(ts|tsx)",
+    "<rootDir>/.storybook/",
     // Old, pre-Next.js code assumed to be working:
     "<rootDir>/src/appConstants.js",
-    "<rootDir>/src/views/",
-    "<rootDir>/src/middleware/",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
@@ -64,189 +65,6 @@ const customJestConfig = {
       functions: 100,
       lines: 100,
       statements: 100,
-    },
-    // The following thresholds are set while transitioning to stronger unit
-    // test discipline; future code should only increase coverage and, ideally,
-    // remove these exceptions by getting the coverage to 100%, or individually
-    // skipping code for coverage as appropriate, with a comment describing why.
-    // See https://github.com/istanbuljs/v8-to-istanbul/blob/fca5e6a9e6ef38a9cdc3a178d5a6cf9ef82e6cab/README.md#ignoring-uncovered-lines
-    "src/apiMocks/mockData.ts": {
-      branches: 85,
-      functions: 50,
-      lines: 50,
-      statements: 90,
-    },
-    "src/app/(proper_react)/redesign/MobileShell.tsx": {
-      branches: 50,
-      functions: 50,
-      lines: 94,
-      statements: 94,
-    },
-    "src/app/(proper_react)/redesign/PageLink.tsx": {
-      branches: 60,
-      functions: 100,
-      lines: 100,
-      statements: 100,
-    },
-    "src/app/(proper_react)/redesign/(authenticated)/user/dashboard/DashboardTopBanner.tsx":
-      {
-        branches: 66.66,
-        functions: 83,
-        lines: 98,
-        statements: 98,
-      },
-    "src/app/(proper_react)/redesign/(authenticated)/user/dashboard/View.tsx": {
-      branches: 80,
-      functions: 71,
-      lines: 87,
-      statements: 87,
-    },
-    "src/app/(proper_react)/redesign/(authenticated)/user/welcome/EnterInfo.tsx":
-      {
-        branches: 100,
-        functions: 40,
-        lines: 89,
-        statements: 89,
-      },
-    "src/app/(proper_react)/redesign/(authenticated)/user/welcome/FindExposures.tsx":
-      {
-        branches: 70,
-        functions: 100,
-        lines: 74,
-        statements: 74,
-      },
-    "src/app/(proper_react)/redesign/(authenticated)/user/welcome/GetStarted.tsx":
-      {
-        branches: 100,
-        functions: 50,
-        lines: 100,
-        statements: 100,
-      },
-    "src/app/(proper_react)/redesign/(authenticated)/user/welcome/View.tsx": {
-      branches: 95,
-      functions: 50,
-      lines: 99,
-      statements: 99,
-    },
-    "src/app/components/client/Chart.tsx": {
-      branches: 100,
-      functions: 25,
-      lines: 100,
-      statements: 100,
-    },
-    "src/app/components/client/ComboBox.tsx": {
-      branches: 83,
-      functions: 100,
-      lines: 100,
-      statements: 100,
-    },
-    "src/app/components/client/ExposureCard.tsx": {
-      branches: 72.41,
-      functions: 75,
-      lines: 79,
-      statements: 79,
-    },
-    "src/app/components/client/ExposuresFilter.tsx": {
-      branches: 50,
-      functions: 5,
-      lines: 71,
-      statements: 71,
-    },
-    "src/app/components/client/ExposuresFilterExplainer.tsx": {
-      branches: 100,
-      functions: 0,
-      lines: 16,
-      statements: 16,
-    },
-    "src/app/components/client/InputField.tsx": {
-      branches: 83,
-      functions: 100,
-      lines: 100,
-      statements: 100,
-    },
-    "src/app/components/client/ListBox.tsx": {
-      branches: 100,
-      functions: 0,
-      lines: 40,
-      statements: 40,
-    },
-    "src/app/components/client/LocationAutocompleteInput.tsx": {
-      branches: 62,
-      functions: 50,
-      lines: 74,
-      statements: 74,
-    },
-    "src/app/components/client/Popover.tsx": {
-      branches: 100,
-      functions: 0,
-      lines: 45,
-      statements: 45,
-    },
-    "src/app/components/client/ProgressCard.tsx": {
-      branches: 100,
-      functions: 0,
-      lines: 18,
-      statements: 18,
-    },
-    "src/app/components/client/dialog/Dialog.tsx": {
-      branches: 50,
-      functions: 50,
-      lines: 79,
-      statements: 79,
-    },
-    "src/app/components/client/toolbar/AppPicker.tsx": {
-      branches: 75,
-      functions: 37,
-      lines: 72,
-      statements: 72,
-    },
-    "src/app/components/server/Icons.tsx": {
-      branches: 90,
-      functions: 66,
-      lines: 68,
-      statements: 68,
-    },
-    "src/app/components/server/StatusPill.tsx": {
-      branches: 50,
-      functions: 100,
-      lines: 83,
-      statements: 83,
-    },
-    "src/app/functions/server/mockL10n.ts": {
-      branches: 91,
-      functions: 71,
-      lines: 92,
-      statements: 92,
-    },
-    "src/app/functions/universal/user.ts": {
-      branches: 100,
-      functions: 25,
-      lines: 68,
-      statements: 68,
-    },
-    "src/cloud-functions/index.js": {
-      branches: 63,
-      functions: 66,
-      lines: 60,
-      statements: 60,
-    },
-    "src/utils/*.{js,ts}": {
-      branches: 19,
-      functions: 0,
-      lines: 0,
-      statements: 14,
-    },
-    "src/db/tables/*.js": {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
-    },
-    "src/app/functions/server/featureFlags.ts": {
-      branches: 90.9,
-      functions: 0,
-      lines: 95.16,
-      statements: 95.16,
     },
   },
 
@@ -272,6 +90,9 @@ const customJestConfig = {
 
   // A set of global variables that need to be available in all test environments
   // globals: {},
+  globals: {
+    fetch,
+  },
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   // maxWorkers: "50%",
@@ -297,11 +118,7 @@ const customJestConfig = {
   // moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: [
-    "e2e/",
-    // These are remnants of our old Express.js app, which we have yet to remove:
-    "src/controllers",
-  ],
+  modulePathIgnorePatterns: ["e2e/"],
 
   // Activates notifications for test results
   // notify: false,
@@ -319,10 +136,10 @@ const customJestConfig = {
   // reporters: undefined,
 
   // Automatically reset mock state before every test
-  resetMocks: false,
+  resetMocks: true,
 
   // Reset the module registry before running each individual test
-  resetModules: false,
+  resetModules: true,
 
   // A path to a custom resolver
   // resolver: undefined,
@@ -342,10 +159,17 @@ const customJestConfig = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: ["jest-canvas-mock"],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: [
+    "<rootDir>/jest.setup.ts",
+    // See https://www.benmvp.com/blog/avoiding-react-act-warning-when-accessibility-testing-next-link-jest-axe/
+    // Mocks the IntersectionObserver API, which is used by Next.js's <Link>.
+    // This prevents warnings about wrapping tests in act() for components that
+    // include <Link>s.
+    "react-intersection-observer/test-utils",
+  ],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
